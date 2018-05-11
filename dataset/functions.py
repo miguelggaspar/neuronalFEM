@@ -14,22 +14,25 @@ class viscoPlastic1D:
         self.d = d
 
     def model(self, z, t, sigma, totalstrain, i):
+        eps = z[0]
         X = z[1]
         R = z[2]
 
-        if (((abs(sigma - X) - R) / self.K) ** 3) < 0:
+        sigma = 200*(totalstrain - eps)
+
+        if (((abs(sigma - X) - R) / self.K)) < 0:
             depsdt = 0
             dXdt = 0
             dRdt = 0
         else:
-            depsdt = (((abs(sigma - X) - R) / self.K) ** 3) * np.sign(sigma - X)
+            depsdt = (((abs(sigma - X) - R) / self.K) ** self.n) * np.sign(sigma - X)
             dXdt = self.H * depsdt - self.D * X * abs(depsdt)
             dRdt = self.h * depsdt - self.d * R * abs(depsdt)
 
         self.dinelastic[i] = depsdt
         self.dX[i] = dXdt
         self.dR[i] = dRdt
-        self.sigma[i] = 200*(totalstrain - z[0])
+        self.sigma[i] = sigma
 
         return [depsdt, dXdt, dRdt]
 
@@ -54,15 +57,15 @@ class viscoPlastic1D:
             tspan = [t[i-1], t[i]]
 
             # solve for next step
-            (z, d) = odeint(self.model, z0, tspan, args=(sigma[i-1],
-                            totalstrain[i-1], i), full_output=1)
+            (z, d) = odeint(self.model, z0, tspan, args=(totalstrain[i-1],
+                                                         i), full_output=1)
 
             sigma[i] = 200*(totalstrain[i-1] - z[1][0])
 
             # store solution for plotting
+            self.inelastic[i] = z[1][0]
             self.X[i] = z[1][1]
             self.R[i] = z[1][2]
-            self.inelastic[i] = z[1][0]
 
             # next initial condition
             z0 = z[1]
