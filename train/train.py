@@ -1,10 +1,13 @@
 import os
 import sys
 import pandas as pd
+import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn import preprocessing
 from sklearn.neural_network import MLPRegressor
 from sklearn.externals import joblib
+# from sklearn.model_selection import GridSearchCV
+from sklearn.model_selection import RandomizedSearchCV
 
 MODEL_PATH = "../dataset/"
 
@@ -45,18 +48,57 @@ else:
     print ("Choose Pre-processing method")
     quit()
 
+
 # This section is used for imputation of missing values TODO
 # imputer = preprocessing.Imputer(missing_values='NaN', strategy='mean', axis=0)
 
-clf = MLPRegressor(solver='lbfgs', alpha=1e-5,
-                   hidden_layer_sizes=(5, 2), random_state=1)
+# Simple neural_network definition
+#
+# clf = MLPRegressor(solver='lbfgs', alpha=1.0,
+#                    hidden_layer_sizes=(5, 2), random_state=1)
+#
+# final_model = clf.fit(X_train, y_train)
 
-final_model = clf.fit(X_train, y_train)
 
-print (final_model.score(X_train, y_train))
-print(final_model.predict(X_test))
+# Grid Search Parameter Tuning
+#
+# prepare a range of alpha values to test
+# alphas = np.array([1,0.1,0.01,0.001,0.0001,0])
+# # create and fit a neural_network regression model, testing each alpha
+# model = MLPRegressor()
+# grid = GridSearchCV(estimator=model, param_grid=dict(alpha=alphas))
+# grid.fit(X_train, y_train)
+#
+# print(grid)
+# # summarize the results of the grid search
+# print(grid.best_score_)
+# print(grid.best_estimator_.alpha)
 
-joblib.dump(final_model, 'mlmodel.pkl')
+# Randomized Search for Algorithm Tuning
+from scipy.stats import uniform as sp_rand
+# prepare a uniform distribution to sample for the alpha parameter
+param_grid = {'alpha': sp_rand()}
+# create and fit a ridge regression model, testing random alpha values
+model = MLPRegressor()
+rsearch = RandomizedSearchCV(estimator=model, param_distributions=param_grid, n_iter=100)
+rsearch.fit(X_train, y_train)
+print(rsearch)
+# summarize the results of the random parameter search
+print(rsearch.best_score_)
+print(rsearch.best_estimator_.alpha)
+
+# Some input values to test
+# p = scaler.transform([[0.00016, 0.04893, 3.78436, 0.01909, 0.80891]])
+# a = final_model.predict(p)
+# # a = final_model.predict([[0.00016, 0.04893, 3.78436, 0.01909, 0.80891]])
+# print (a[0][0])
+# print (a[0][1])
+# print (a[0][2])
+
+# Save final model to deploy
+# joblib.dump(final_model, 'mlmodel.pkl')
+joblib.dump(rsearch, 'mlmodel.pkl')
+joblib.dump(scaler, 'scaler.pkl')
 
 # For further use, use this line to import trained model
 # clf = joblib.load('mlmodel.pkl')

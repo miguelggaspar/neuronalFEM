@@ -52,7 +52,7 @@ for j in range(0, nc):
 # Define material parameters for viscoplastic behaviour
 model = viscoPlastic1D(50, 3, 5000, 100, 300, 0.6)
 # Solve
-model.solve(n, z0, stress, totalstrain, t)
+model.solve(n, z0, totalstrain, t)
 
 
 # Save Results to csv file
