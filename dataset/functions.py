@@ -22,7 +22,7 @@ class viscoPlastic1D:
         tcicle = t - tc*math.floor(t/tc)
 
         if tcicle <= tc/4.0:
-            return 4*(Emax/tc)*tcicle
+            return 4.0*(Emax/tc)*tcicle
 
         if tc/4.0 < tcicle <= (3.0/4.0)*tc:
             return (-((4.0*Emax))/tc) * tcicle + (2.0) * Emax
@@ -51,7 +51,7 @@ class viscoPlastic1D:
         self.sigma[i] = sigma
         return [depsdt, dXdt, dRdt]
 
-    def solve(self, n, z0, totalstrain, t):
+    def solve(self, n, z0, t):
 
         t = np.linspace(0, 80, n)
 
