@@ -1,25 +1,25 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
+# Import data to make graphs
 df = pd.read_csv("data.csv")
+# Ploting style
 style = 'ggplot'
-
 
 
 # Plot Total, Elastic and Inelastic Strains
 def save_graph(legends, n_hand, data, labels, name):
     plt.figure(figsize=(8, 5), dpi=80)
     plt.style.use(style)
-    # plt.ylim(-0.075, 0.075)                         # set the xlim to xmin, xmax
+    # plt.ylim(-0.075, 0.075)                      # set the xlim to xmin, xmax
     color = ['b', 'r', 'k']
-    handlers = []
     fig, ax = plt.subplots(3, 1, sharex=True, sharey=True)
     fig.text(0.51, 0.035, labels[0], ha='center')
     fig.text(0.02, 0.5, labels[1], va='center', rotation='vertical')
     for n in range(n_hand):
         plt.subplot(n_hand, 1, n+1)
         plt.plot(data[0], data[n+1], color[n])
-        # handlers.append(plt.plot(data[0], data[n+1], color[n]))   #Total strain
+        plt.axis('auto')
         plt.legend(legends[n:])
     plt.savefig(name)
 
@@ -84,6 +84,6 @@ data = [df['Time'], df['dpStrain'], df['pStrain']]
 labels = ['Time [s]', 'Strain [%]']
 save_graph(legend, 2, data, labels, 'graphs/plastic_strain_and_rate_2d')
 
-#Duvidas :
-    # - Como e que eu represento o reverse cyclic loading
-    # -
+# Duvidas :
+# - Como e que eu represento o reverse cyclic loading
+# -

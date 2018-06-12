@@ -104,8 +104,9 @@ class viscoPlastic2D:
         self.X[0, 0] = z0[3]         # Back stress xx direction
         self.X[0, 1] = z0[4]         # Back stress yy direction
         self.X[0, 2] = z0[5]         # Back stress xy direction
-        self.p[0] = z0[6]            # Plastic strain
-        self.R[0] = z0[7]            # Drag stress
+        self.R[0] = z0[6]            # Drag stress
+        self.p[0] = z0[7]            # Plastic strain
+
         stiff = self.E/(1-self.v**2) * np.array([[1,      self.v,         0      ],
                                                  [self.v,   1 ,           0      ],
                                                  [0,        0,      (1-self.v)/2]])
