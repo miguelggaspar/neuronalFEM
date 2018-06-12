@@ -86,7 +86,6 @@ celerybeat-schedule
 .venv
 venv/
 ENV/
-
 # Spyder project settings
 .spyderproject
 .spyproject
@@ -101,5 +100,6 @@ ENV/
 .mypy_cache/
 
 # data
-.csv
-.pkl
+*.csv
+*.pkl
+*.png
