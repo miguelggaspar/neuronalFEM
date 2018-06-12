@@ -35,8 +35,7 @@ class viscoPlastic2D:
             return ((-4.0*Emin)/tc) * tcicle + 4.0*Emin
 
     def model(self, z, t, i, stiff, ET):
-
-        # a partir de z retirar:
+        # from z separate function values:
         Ei = z[:3].reshape(3, 1)       # Inelastic strain tensor (EIxx,EIyy,EIxy=EIyx)
         X = z[3:6].reshape(3, 1)       # Back stress tensor
         R = copy.deepcopy(z[6])        # Drag stress
@@ -120,8 +119,7 @@ class viscoPlastic2D:
             # span for next time step
             tspan = [t[i-1], t[i]]
             # solves for next step
-            (z, d) = odeint(self.model, z0, tspan, args=(i, stiff, self.ET[i, :]),
-                            full_output=1)
+            z = odeint(self.model, z0, tspan, args=(i, stiff, self.ET[i, :]))
             # store solution for plotting
             self.Ei[i, 0] = z[1][0]
             self.Ei[i, 1] = z[1][1]
@@ -129,7 +127,7 @@ class viscoPlastic2D:
             self.X[i, 0] = z[1][3]
             self.X[i, 1] = z[1][4]
             self.X[i, 2] = z[1][5]
-            self.p[i] = z[1][6]
-            self.R[i] = z[1][7]
+            self.R[i] = z[1][6]
+            self.p[i] = z[1][7]
             # next initial condition
             z0 = z[1]
