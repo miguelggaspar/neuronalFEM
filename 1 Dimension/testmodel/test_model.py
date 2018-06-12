@@ -4,9 +4,9 @@ from functions import viscoPlastic1D
 from sklearn.externals import joblib
 
 # Load trained model for further prediction and scalers to transform the data.
-ann = joblib.load('../train/mlmodel.pkl')
-scaler_x = joblib.load('../train/scaler_x.pkl')
-scaler_y = joblib.load('../train/scaler_y.pkl')
+ann = joblib.load('../train/model/mlmodel.pkl')
+scaler_x = joblib.load('../train/model/scaler_x.pkl')
+scaler_y = joblib.load('../train/model/scaler_y.pkl')
 # Load real data to compare results
 df = pd.read_csv("../dataset/data.csv")
 # initial conditions - inelastic strain  / X / R
