@@ -115,4 +115,4 @@ class viscoPlastic2D:
             self.R[i] = z[6]
             self.p[i] = z[7]
             # next initial condition
-            z0 = z[1]
+            z0 = z
