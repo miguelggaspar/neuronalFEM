@@ -13,9 +13,6 @@ X = df.drop(["ET11", "ET22", "ET12", "dEi11", "dEi22", "dEi12",
 y = df.drop(["ET11", "ET22", "ET12", "Ei11", "Ei22", "Ei12", "Time",
              "X11", "X22", "X12", "pStrain", "R", "S11", "S22", "S12"], axis=1)
 
-print (X)
-print (y)
-
 scaler_x = preprocessing.StandardScaler()
 scaler_y = preprocessing.StandardScaler()
 

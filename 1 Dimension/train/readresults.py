@@ -20,8 +20,8 @@ scaler_y = preprocessing.StandardScaler()
 scaler_x.fit(X)
 scaler_y.fit(y)
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=.3, random_state=42)
-Xtime_train, Xtime_test, ytime_train, ytime_test = train_test_split(Xtime, y, test_size=.3, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=.3,
+                                                    random_state=42)
 
 X_train = scaler_x.transform(X_train)
 X_test = scaler_x.transform(X_test)

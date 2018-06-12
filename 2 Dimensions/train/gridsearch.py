@@ -8,17 +8,20 @@ import numpy as np
 
 df = pd.read_csv("../dataset/data.csv")
 
-X = df.drop(["dIStrain", "dX", "dR", "Time"], axis=1)
-y = df.drop(["IStrain", "TStrain", "X", "R", "Time", "Stress"], axis=1)
+X = df.drop(["ET11", "ET22", "ET12", "dEi11", "dEi22", "dEi12",
+             "dX11", "dX12", "dX22", "dpStrain", "dR", "Time"], axis=1)
+# Choose targets
+y = df.drop(["ET11", "ET22", "ET12", "Ei11", "Ei22", "Ei12", "Time",
+             "X11", "X22", "X12", "pStrain", "R", "S11", "S22", "S12"], axis=1)
 
 # Implements the Transformer API to compute the mean and standard deviation on a
 # training set so as to be able to later reapply the same transformation on the
 # testing set
-
 scaler_x = preprocessing.StandardScaler()
 scaler_y = preprocessing.StandardScaler()
 # Don't cheat - fit only on training data
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=.3, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=.3,
+                                                    random_state=42)
 scaler_x.fit(X)
 scaler_y.fit(y)
 

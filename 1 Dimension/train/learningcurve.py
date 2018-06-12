@@ -7,11 +7,6 @@ import pandas as pd
 import numpy as np
 from sklearn.model_selection import learning_curve
 from sklearn.model_selection import ShuffleSplit
-from sklearn.ensemble import AdaBoostRegressor
-from sklearn.tree import DecisionTreeRegressor
-from sklearn.multioutput import MultiOutputRegressor
-
-from sklearn.svm import SVR
 
 # For further use, use this line to import trained model
 gs = joblib.load('gs.pkl')
@@ -30,8 +25,8 @@ scaler_y = preprocessing.StandardScaler()
 scaler_x.fit(X)
 scaler_y.fit(y)
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=.3, random_state=42)
-Xtime_train, Xtime_test, ytime_train, ytime_test = train_test_split(Xtime, y, test_size=.3, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=.3,
+                                                    random_state=42)
 
 X_train = scaler_x.transform(X_train)
 X_test = scaler_x.transform(X_test)
@@ -40,6 +35,7 @@ y_test = scaler_y.transform(y_test)
 
 X = scaler_x.transform(X)
 y = scaler_y.transform(y)
+
 
 def plot_learning_curve(estimator, title, X, y, ylim=None, cv=None,
                         n_jobs=1, train_sizes=np.linspace(.1, 1.0, 5)):
@@ -115,13 +111,9 @@ estimator = MLPRegressor(solver='lbfgs', hidden_layer_sizes=(6,),
                          activation='logistic', learning_rate='adaptive',
                          alpha=1, random_state=1)
 
-# regr_2 = AdaBoostRegressor(DecisionTreeRegressor(max_depth=4),
-#                           n_estimators=300, random_state=42)
-# regr_2 = SVR()
-regr_2 = MultiOutputRegressor(SVR())
 title = "Learning Curves (Naive Bayes)"
 # Cross validation with 100 iterations to get smoother mean test and train
 # score curves, each time with 20% data randomly selected as a validation set.
 cv = ShuffleSplit(n_splits=20, test_size=0.2, random_state=42)
-plot_learning_curve(estimator, title, X, y, cv=cv ,ylim=(0.0, 1.01), n_jobs=4)
+plot_learning_curve(estimator, title, X, y, cv=cv, ylim=(0.0, 1.01), n_jobs=4)
 plt.show()
