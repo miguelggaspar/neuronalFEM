@@ -33,7 +33,7 @@ y_test = scaler_y.transform(y_test)
 X = scaler_x.transform(X)
 y = scaler_y.transform(y)
 
-estimator = MLPRegressor(solver='lbfgs', hidden_layer_sizes=(4,),
+estimator = MLPRegressor(solver='lbfgs', hidden_layer_sizes=(4,4),
                          activation='relu', learning_rate='adaptive',
                          alpha=1, random_state=1)
 

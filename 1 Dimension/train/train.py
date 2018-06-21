@@ -38,6 +38,6 @@ estimator = MLPRegressor(solver='lbfgs', hidden_layer_sizes=(4,),
 estimator.fit(X_train, y_train)
 # Save trained model to further use. Scalers are required too, to transform
 # the new data
-joblib.dump(estimator, 'mlmodel.pkl')
-joblib.dump(scaler_x, 'scaler_x.pkl')
-joblib.dump(scaler_y, 'scaler_y.pkl')
+joblib.dump(estimator, 'model/mlmodel.pkl')
+joblib.dump(scaler_x, 'model/scaler_x.pkl')
+joblib.dump(scaler_y, 'model/scaler_y.pkl')

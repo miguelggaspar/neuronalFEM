@@ -9,7 +9,7 @@ from sklearn.model_selection import learning_curve
 from sklearn.model_selection import ShuffleSplit
 
 # For further use, use this line to import trained model
-gs = joblib.load('gs.pkl')
+# gs = joblib.load('gs.pkl')
 
 df = pd.read_csv("../dataset/data.csv")
 

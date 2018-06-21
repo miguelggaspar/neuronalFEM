@@ -19,18 +19,16 @@ def save_graph(legends, n_hand, data, labels, name, condition):
             plt.plot(data[2*n], data[2*n+1], color[n])
         else:
             plt.plot(data[0], data[n+1], color[n])
-        print (legends[n:])
     plt.legend(legends[:], loc=0)
     plt.savefig(name)
 
 
 # Plot Total, Elastic and Inelastic Strains
 legend = [r'$\varepsilon^{vp}_{real}$',
-          r'$\varepsilon^{vp}_{pred}$',
-          r'$\varepsilon^e$']
-data = [df['Time'], df['IStrain'], pred['EI'], pred['EL']]
+          r'$\varepsilon^{vp}_{pred}$']
+data = [df['Time'], df['IStrain'], pred['EI']]
 labels = ['Time [s]', 'Strain [%]']
-save_graph(legend, 3, data, labels, 'graphs/comp_instrain_1d', 0)
+save_graph(legend, 2, data, labels, 'graphs/comp_instrain_1d', 0)
 
 # Plot and save graphs of Back stress rate
 legend = [r'$\dot \chi_{real}$',
@@ -44,7 +42,7 @@ legend = [r'$\dot R_{real}$',
           r'$\dot R_{pred}$']
 data = [df['Time'], df['dR'], pred['dR']]
 labels = ['Time [s]',  r'Stress rate $[\frac{MPa}{s}]$']
-save_graph(legend, 2, data, labels, 'graphs/comp_back_stress_rate_1d', 0)
+save_graph(legend, 2, data, labels, 'graphs/comp_drag_stress_rate_1d', 0)
 
 # Plot and save graphs of Inelastic strain rate
 legend = [r'$\dot \varepsilon^{vp}_{real}$',
