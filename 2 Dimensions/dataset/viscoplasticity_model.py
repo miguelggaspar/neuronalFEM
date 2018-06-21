@@ -21,15 +21,13 @@ model = viscoPlastic2D(200000.0, 0.3, 436.0, 80.0, 85.2, 93.57, 21.3, 843, 4.55)
 # model = viscoPlastic2D(223000.0, 0.3, -138.48, 210.15, 14.085, 611700.0, 16.74,
                     #    38840.0, 9.51)
 # Time points
-t = np.linspace(0, 5, n)
+t = np.linspace(0, 50, n)
 # initial conditions - inelastic strain  / X / R
 z0 = [0, 0, 0, 0, 0, 0, 0, 0]
 # Solve Chaboche's 1D model with given material parameters
 model.solve(n, z0, t)
-
-# Calculate elastic strain
-#TODO
-
+# Calculate Elastic strain
+model.Ee = model.ET - model.Ei
 # Save Results to csv file
 df = pd.DataFrame({"ET11": model.ET[:, 0], "ET22": model.ET[:, 1], "ET12": model.ET[:, 2],
                    "Ei11": model.Ei[:, 0], "Ei22": model.Ei[:, 1], "Ei12": model.Ei[:, 2],
@@ -38,6 +36,7 @@ df = pd.DataFrame({"ET11": model.ET[:, 0], "ET22": model.ET[:, 1], "ET12": model
                    "dX11": model.dX[:, 0], "dX22": model.dX[:, 1], "dX12": model.dX[:, 2],
                    "pStrain": model.p, "R": model.R, "dpStrain": model.dp, "dR": model.dR,
                    "S11": model.stress[:, 0], "S22": model.stress[:, 1], "S12": model.stress[:, 2],
+                   "Ee11": model.Ee[:, 0], "Ee22": model.Ee[:, 1], "Ee12": model.Ee[:, 2],
                    "Time": t})
 
 df.to_csv("data.csv", float_format='%.5f', index=False)

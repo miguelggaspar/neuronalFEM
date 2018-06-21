@@ -62,6 +62,14 @@ data = [df['Time'], df['ET11'], df['ET22'], df['ET12']]
 labels = ['Time [s]', 'Strain [%]']
 save_graph(legend, 3, data, labels, 'graphs/ET_2d')
 
+# Plot and save graphs of Elastic Strain
+legend = [r'$\varepsilon^e_{x}$',
+          r'$\varepsilon^e_{y}$',
+          r'$\varepsilon^e_{xy}$']
+data = [df['Time'], df['Ee11'], df['Ee22'], df['Ee12']]
+labels = ['Time [s]', 'Strain [%]']
+save_graph(legend, 3, data, labels, 'graphs/Ee_2d')
+
 # Plot and save graphs of Inelastic Strain
 legend = [r'$\varepsilon^{in}_{x}$',
           r'$\varepsilon^{in}_{y}$',

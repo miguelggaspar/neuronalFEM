@@ -88,6 +88,7 @@ class viscoPlastic2D:
 
     def solve(self, n, z0, t):
         self.ET = np.zeros((n, 3))
+        self.Ee = np.zeros((n, 3))
         self.Ei = np.zeros((n, 3))
         self.X = np.zeros((n, 3))
         self.p = np.zeros(n)
@@ -116,6 +117,7 @@ class viscoPlastic2D:
         for i in range(1, n):
             # Calculate Strain xx direction
             self.ET[i, 0] = self.total_strain(t[i])
+            self.ET[i, 1] = -self.v * self.ET[i, 0]
             # self.ET[i, 1] = self.total_strain(t[i])
             # span for next time step
             tspan = [t[i-1], t[i]]

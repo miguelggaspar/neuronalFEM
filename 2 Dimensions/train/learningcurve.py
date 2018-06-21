@@ -13,11 +13,12 @@ from sklearn.model_selection import ShuffleSplit
 
 df = pd.read_csv("../dataset/data.csv")
 
-X = df.drop(["ET11", "ET22", "ET12", "dEi11", "dEi22", "dEi12",
-             "dX11", "dX12", "dX22", "dpStrain", "dR", "Time"], axis=1)
+X = df.drop(["ET11", "ET22", "ET12", "dEi11", "dEi22", "dEi12", "Ee11", "Ee22",
+             "Ee12", "dX11", "dX12", "dX22", "dpStrain", "dR", "Time"], axis=1)
 # Choose targets
-y = df.drop(["ET11", "ET22", "ET12", "Ei11", "Ei22", "Ei12", "Time",
-             "X11", "X22", "X12", "pStrain", "R", "S11", "S22", "S12"], axis=1)
+y = df.drop(["ET11", "ET22", "ET12", "Ei11", "Ei22", "Ei12", "Time",  "Ee11",
+             "Ee22",  "Ee12", "X11", "X22", "X12", "pStrain", "R", "S11",
+             "S22", "S12"], axis=1)
 
 scaler_x = preprocessing.StandardScaler()
 scaler_y = preprocessing.StandardScaler()
