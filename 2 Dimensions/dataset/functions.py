@@ -7,7 +7,7 @@ from scipy.integrate import odeint
 
 class viscoPlastic2D:
 
-    def __init__(self, E, v, R1, k, K, a, b, c, n):
+    def __init__(self, E, v, R1, k, K, a, b, c, n, nt):
         self.E = E
         self.v = v
         self.R1 = R1
@@ -17,11 +17,25 @@ class viscoPlastic2D:
         self.b = b
         self.c = c
         self.n = n
+        self.ET = np.zeros((nt, 3))
+        self.Ee = np.zeros((nt, 3))
+        self.Ei = np.zeros((nt, 3))
+        self.X = np.zeros((nt, 3))
+        self.p = np.zeros(nt)
+        self.R = np.zeros(nt)
+        self.dEi = np.zeros((nt, 3))
+        self.dX = np.zeros((nt, 3))
+        self.dp = np.zeros(nt)
+        self.dR = np.zeros(nt)
+        self.stress = np.zeros((nt, 3))
+        self.crit = np.zeros(nt)
+        self.J = np.zeros(nt)
 
 # function that returns de/dt (strain rate)
     def total_strain(self, t):
         tc = 20.0
-        Emax = 0.036
+        Emax = 0.036/100.000
+        Emax = 0.001
         Emin = -Emax
         tcicle = t - tc*math.floor(t/tc)
 
@@ -43,7 +57,7 @@ class viscoPlastic2D:
         ET = ET.reshape(3, 1)
 
         stress = np.matmul(stiff, ET-Ei)
-
+        stress[1] = 0
         # Calculate deviatoric Stress
         S_dev = copy.deepcopy(stress)
         S_dev[0][0] -= (1./3.)*(stress[0]+stress[1])
@@ -54,8 +68,9 @@ class viscoPlastic2D:
         X_dev[1][0] -= (1./3.)*(X[0] + X[1])
         # Calculate J invariant
         J = math.sqrt((3./2.)*np.matmul((S_dev-X_dev).transpose(), S_dev-X_dev))
-        # Calculate plastic strain rate
+        self.J[i] = J
         crit = (J - R - self.k) / self.K
+        self.crit[i] = crit
         # print "crit ->> \n", crit
         if crit < 0:          # Elastic behavior
             dpdt = 0
@@ -63,7 +78,9 @@ class viscoPlastic2D:
             dXdt = np.array([[0], [0], [0]])
             dRdt = 0
         else:               # Plastic behavior
-            dpdt = ((1./2.) * (crit + abs(crit)))**self.n
+            # Calculate plastic strain rate
+            dpdt = crit**self.n
+            # dpdt = ((1./2.) * (crit + abs(crit)))**self.n
             # Calculate Inelastic strain rate tensor
             dEIdt = (3./2.) * dpdt * (S_dev-X_dev)/J
             # Calculate Back stress rate tensor
@@ -86,18 +103,7 @@ class viscoPlastic2D:
                 dXdt[2, 0], dRdt, dpdt]
         return dzdt
 
-    def solve(self, n, z0, t):
-        self.ET = np.zeros((n, 3))
-        self.Ee = np.zeros((n, 3))
-        self.Ei = np.zeros((n, 3))
-        self.X = np.zeros((n, 3))
-        self.p = np.zeros(n)
-        self.R = np.zeros(n)
-        self.dEi = np.zeros((n, 3))
-        self.dX = np.zeros((n, 3))
-        self.dp = np.zeros(n)
-        self.dR = np.zeros(n)
-        self.stress = np.zeros((n, 3))
+    def solve(self, nt, z0, t):
         # record initial conditions
         self.Ei[0, 0] = z0[0]        # Inelastic strain xx direction
         self.Ei[0, 1] = z0[1]        # Inelastic strain yy direction
@@ -114,7 +120,7 @@ class viscoPlastic2D:
         # Calculate total strain
         # TODO
 
-        for i in range(1, n):
+        for i in range(1, nt):
             # Calculate Strain xx direction
             self.ET[i, 0] = self.total_strain(t[i])
             self.ET[i, 1] = -self.v * self.ET[i, 0]

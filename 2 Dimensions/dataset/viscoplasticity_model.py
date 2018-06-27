@@ -3,7 +3,7 @@ import pandas as pd
 from functions import viscoPlastic2D
 
 # number of time points
-n = 1000
+n = 3000
 
 # Define material parameters for viscoplastic behaviour
 # E, v, R1, k, K, a, b, c, n
@@ -16,12 +16,12 @@ n = 1000
 # # Steel 316 20C
 # model = viscoPlastic2D(196000.0, 0.3, 60.0, 82.0, 151.0, 162.4, 8.0, 2800.0, 24)
 # # Steel 316 20C
-model = viscoPlastic2D(200000.0, 0.3, 436.0, 80.0, 85.2, 93.57, 21.3, 843, 4.55)
+model = viscoPlastic2D(200000.0, 0.3, 436.0, 80.0, 85.2, 93.57, 21.3, 843, 4.55, n)
 # Steel 20C
 # model = viscoPlastic2D(223000.0, 0.3, -138.48, 210.15, 14.085, 611700.0, 16.74,
                     #    38840.0, 9.51)
 # Time points
-t = np.linspace(0, 50, n)
+t = np.linspace(0, 80, n)
 # initial conditions - inelastic strain  / X / R
 z0 = [0, 0, 0, 0, 0, 0, 0, 0]
 # Solve Chaboche's 1D model with given material parameters
