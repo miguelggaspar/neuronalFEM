@@ -19,10 +19,11 @@ def save_graph(legends, n_hand, data, labels, name, condition):
         plt.subplot(n_hand, 1, n+1)
         if condition == 1:
             plt.plot(data[0], data[n+1], color[n])
+            plt.legend(legends[n:], loc=0)
         else:
             plt.plot(data[0], data[2*n+1], color[2*n])
             plt.plot(data[0], data[2*n+2], color[2*n+1])
-        plt.legend(legends[n:], loc=0)
+            plt.legend(legends[2*n:2*n+2], loc=0)
     plt.savefig(name)
 
 
@@ -89,7 +90,8 @@ labels = ['Time [s]', 'Strain [%]']
 save_graph(legend, 3, data, labels, 'graphs/comp_dEi_2d', 0)
 
 # Plot and save graphs of Plastic Strain and it's rate
-legend = [r'Predicted $\dot p$', r'Real $p$']
+legend = [r'Predicted $\dot p$', r'Real $\dot p$',
+          r'Predicted $p$', r'Real $p$' ]
 data = [df['Time'], pred['dpStrain'], df['dpStrain'], pred['pStrain'], df['pStrain']]
 labels = ['Time [s]', 'Strain [%]']
 save_graph(legend, 2, data, labels, 'graphs/comp_p_dp_2d', 0)

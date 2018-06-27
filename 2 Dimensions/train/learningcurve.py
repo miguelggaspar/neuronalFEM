@@ -109,8 +109,8 @@ def plot_learning_curve(estimator, title, X, y, ylim=None, cv=None,
     return plt
 
 
-estimator = MLPRegressor(solver='lbfgs', hidden_layer_sizes=(6,),
-                         activation='logistic', learning_rate='adaptive',
+estimator = MLPRegressor(solver='lbfgs', hidden_layer_sizes=(9,9),
+                         activation='relu', learning_rate='adaptive',
                          alpha=1, random_state=1)
 title = "Learning Curves (Naive Bayes)"
 # Cross validation with 100 iterations to get smoother mean test and train

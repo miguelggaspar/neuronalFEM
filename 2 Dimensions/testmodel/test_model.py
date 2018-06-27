@@ -15,9 +15,9 @@ n = 1000
 # E, v, R1, k, K, a, b, c, n
 model = viscoPlastic2D(200000.0, 0.3, 436.0, 80.0, 85.2, 93.57, 21.3, 843, 4.55)
 # Time points
-t = np.linspace(0, 80, n)
+t = np.linspace(0, 50, n)
 # initial conditions - inelastic strain  / X / R
-z0 = [0, 0, 0, 0, 0, 0, model.R1, 0]
+z0 = [0, 0, 0, 0, 0, 0, 0, 0]
 # Solve Chaboche's 1D model with given material parameters
 model.solve(n, z0, t, ann, scaler_x, scaler_y)
 
