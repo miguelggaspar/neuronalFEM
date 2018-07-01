@@ -95,7 +95,6 @@ legend = [r'Predicted $\dot p$', r'Real $\dot p$',
 data = [df['Time'], pred['dpStrain'], df['dpStrain'], pred['pStrain'], df['pStrain']]
 labels = ['Time [s]', 'Strain [%]']
 save_graph(legend, 2, data, labels, 'graphs/comp_p_dp_2d', 0)
-
 #Duvidas :
     # - Como e que eu represento o reverse cyclic loading
     # -

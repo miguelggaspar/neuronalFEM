@@ -34,7 +34,7 @@ gs = GridSearchCV(MLPRegressor(), param_grid={
     'activation': ['logistic', 'tanh', 'relu'],
     'solver': ["lbfgs", "sgd", "adam"],
     'learning_rate': ['constant', 'invscaling', 'adaptive'],
-    'alpha': [np.logspace(-5, 3, 5)]})
+    'alpha': [np.logspace(-5, 3, 5).all()]})
 gs.fit(X_train, y_train)
 
 print("Best: %f using %s" % (gs.best_score_, gs.best_params_))

@@ -22,6 +22,7 @@ class viscoPlastic2D:
     def total_strain(self, t):
         tc = 20.0
         Emax = 0.036
+        Emax = 0.001
         Emin = -Emax
         tcicle = t - tc*math.floor(t/tc)
 
@@ -43,14 +44,21 @@ class viscoPlastic2D:
         ET = ET.reshape(3, 1)          # Total strain
         # Calculate Stress
         stress = np.matmul(stiff, ET-Ei)
-        input = scaler_x.transform([[Ei[0, 0], Ei[2, 0], Ei[1, 0], R,
-                                     stress[0, 0], stress[2, 0], stress[1, 0],
-                                     X[0, 0], X[2, 0], X[1, 0], p]])
+        stress[1] = 0
+        input = scaler_x.transform([[Ei[0, 0], Ei[1, 0], R, stress[0, 0],
+                                     X[0, 0], X[1, 0], p]])
+        # input = scaler_x.transform([[Ei[0, 0], Ei[2, 0], Ei[1, 0], R,
+        #                              stress[0, 0], stress[2, 0], stress[1, 0],
+        #                              X[0, 0], X[2, 0], X[1, 0], p]])
         output = scaler_y.inverse_transform((ann.predict(input)))
-        dEIdt = np.array([[output[0][0]], [output[0][2]], [output[0][1]]])
-        dRdt = output[0][3]
-        dXdt = np.array([[output[0][4]], [output[0][6]], [output[0][5]]])
-        dpdt = output[0][7]
+        # dEIdt = np.array([[output[0][0]], [output[0][2]], [output[0][1]]])
+        # dRdt = output[0][3]
+        # dXdt = np.array([[output[0][4]], [output[0][6]], [output[0][5]]])
+        # dpdt = output[0][7]
+        dEIdt = np.array([[output[0][0]], [output[0][1]], [0]])
+        dRdt = output[0][2]
+        dXdt = np.array([[output[0][3]], [output[0][4]], [0]])
+        dpdt = output[0][5]
 
         # Store solutions
         self.stress[i, 0] = stress[0, 0]
