@@ -105,4 +105,4 @@ xyp.title.style.setValues(font='-*-arial-medium-r-normal-*-*-240-*-*-p-*-*-*')
 #     session.writeImageAnimation(fileName=path_filename+'.avi', format=AVI, canvasObjects=(session.viewports[myViewport.name], ))
 #     print('saved %s' % path_filename+'.avi')
 # except:
-#     pass
+    pass

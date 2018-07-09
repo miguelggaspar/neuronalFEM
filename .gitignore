@@ -103,3 +103,6 @@ ENV/
 *.csv
 *.pkl
 *.png
+*.bkp
+*.odb
+*.txt

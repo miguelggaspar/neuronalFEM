@@ -113,20 +113,20 @@ class viscoPlastic2D:
             z = odeint(self.model, z0, tspan,
                             args=(i, stiff, self.ET[i, :], ann, scaler_x,
                                   scaler_y))
-            print (z[1][0])
+            #print (z[1][0])
             # store solution for plotting
             self.Ei[i, 0] = z[1][0]
             self.Ei[i, 1] = z[1][1]
             self.Ei[i, 2] = z[1][2]
-            print ("Ei x -> ", z[1][0],"Ei y -> ", z[1][1], "Ei xy -> ", z[1][2])
+            #print ("Ei x -> ", z[1][0],"Ei y -> ", z[1][1], "Ei xy -> ", z[1][2])
             self.X[i, 0] = z[1][3]
             self.X[i, 1] = z[1][4]
             self.X[i, 2] = z[1][5]
-            print ("\nX x -> ", z[1][3],"X y -> ", z[1][4], "X xy -> ", z[1][5])
+            #print ("\nX x -> ", z[1][3],"X y -> ", z[1][4], "X xy -> ", z[1][5])
             self.R[i] = z[1][6]
-            print ("\nR -> ", z[1][6])
+            #print ("\nR -> ", z[1][6])
             self.p[i] = z[1][7]
-            print ("\np -> ", z[1][7])
+            #print ("\np -> ", z[1][7])
 
             # next initial condition
             z0 = z[1]
