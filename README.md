@@ -1,6 +1,11 @@
 # ViscoPlastic-ML
 
-One Paragraph of project description goes here
+This Project aims on creating an elastoplastic behavior
+using machine learning methods. First a 1D model is created using constitutive equations and used as
+dataset. After that, the 2D model is generated and also used for dataset, but then it is tested in
+the well known Abaqus, a software suite for finite element analysis and computer-aided engineering.
+The final stage of this project is using an experimental dataset provided by my university
+to train models.
 
 ## Getting Started
 
@@ -11,7 +16,10 @@ These instructions will get you a copy of the project up and running on your loc
 What things you need to install the software and how to install them
 
 ```
-Give examples
+Scikit-Learn
+Scipy
+Pandas
+Matplotlib
 ```
 
 ### Installing
