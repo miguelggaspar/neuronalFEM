@@ -121,6 +121,7 @@ class viscoPlastic2D:
             self.X[i, 0] = z[1][3]
             self.X[i, 1] = z[1][4]
             self.X[i, 2] = z[1][5]
+            #testing branch
             #print ("\nX x -> ", z[1][3],"X y -> ", z[1][4], "X xy -> ", z[1][5])
             self.R[i] = z[1][6]
             #print ("\nR -> ", z[1][6])
