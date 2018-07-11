@@ -21,7 +21,6 @@ class viscoPlastic2D:
 # function that returns de/dt (strain rate)
     def total_strain(self, t):
         tc = 20.0
-        Emax = 0.036
         Emax = 0.001
         Emin = -Emax
         tcicle = t - tc*math.floor(t/tc)
@@ -44,7 +43,7 @@ class viscoPlastic2D:
         ET = ET.reshape(3, 1)          # Total strain
         # Calculate Stress
         stress = np.matmul(stiff, ET-Ei)
-        stress[1] = 0
+        stress[1] = 0                     # StressY = 0
         input = scaler_x.transform([[Ei[0, 0], Ei[1, 0], R, stress[0, 0],
                                      X[0, 0], X[1, 0], p]])
         # input = scaler_x.transform([[Ei[0, 0], Ei[2, 0], Ei[1, 0], R,
@@ -103,7 +102,7 @@ class viscoPlastic2D:
         # TODO
 
         for i in range(1, n):
-            # Calculate Strain xx direction
+            # Calculate Strain
             self.ET[i, 0] = self.total_strain(t[i])
             self.ET[i, 1] = -self.v * self.ET[i, 0]
             # self.ET[i, 1] = self.total_strain(t[i])

@@ -7,7 +7,7 @@ from scipy.integrate import odeint
 
 class viscoPlastic2D:
 
-    def __init__(self, E, v, R1, k, K, a, b, c, n, nt):
+    def __init__(self, E, v, R1, k, K, a, b, c, n, nt, trial):
         self.E = E
         self.v = v
         self.R1 = R1
@@ -30,12 +30,16 @@ class viscoPlastic2D:
         self.stress = np.zeros((nt, 3))
         self.crit = np.zeros(nt)
         self.J = np.zeros(nt)
+        self.trial = trial         # x-traction(x),y-traction(y),3-shearing(xy)
 
 # function that returns de/dt (strain rate)
     def total_strain(self, t):
         tc = 20.0
         Emax = 0.036/100.000
-        Emax = 0.001
+        if (self.trial) == 'xy':
+            Emax = 0.003
+        else:
+            Emax = 0.001
         Emin = -Emax
         tcicle = t - tc*math.floor(t/tc)
 
@@ -57,7 +61,14 @@ class viscoPlastic2D:
         ET = ET.reshape(3, 1)
 
         stress = np.matmul(stiff, ET-Ei)
-        stress[1] = 0
+        if (self.trial)=='x':                 # X axis traction
+            stress[1] = 0                     # StressY = 0
+        elif (self.trial)=='y':               # Y axis traction
+            stress[0] = 0                     # StressX = 0
+        elif (self.trial)=='xy':              # XY axis Shearing
+            self.ET[i, 0] = 0
+            self.ET[i, 1] = 0
+
         # Calculate deviatoric Stress
         S_dev = copy.deepcopy(stress)
         S_dev[0][0] -= (1./3.)*(stress[0]+stress[1])
@@ -121,10 +132,15 @@ class viscoPlastic2D:
         # TODO
 
         for i in range(1, nt):
-            # Calculate Strain xx direction
-            self.ET[i, 0] = self.total_strain(t[i])
-            self.ET[i, 1] = -self.v * self.ET[i, 0]
-            # self.ET[i, 1] = self.total_strain(t[i])
+            # Calculate Strain
+            if (self.trial) == 'x':
+                self.ET[i, 0] = self.total_strain(t[i])
+                self.ET[i, 1] = -self.v * self.ET[i, 0]
+            elif (self.trial) == 'y':
+                self.ET[i, 1] = self.total_strain(t[i])
+                self.ET[i, 0] = -self.v * self.ET[i, 1]
+            elif (self.trial)=='xy':
+                self.ET[i, 2] = self.total_strain(t[i])
             # span for next time step
             tspan = [t[i-1], t[i]]
             # solves for next step
