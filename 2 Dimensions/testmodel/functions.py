@@ -7,7 +7,7 @@ from scipy.integrate import odeint
 
 class viscoPlastic2D:
 
-    def __init__(self, E, v, R1, k, K, a, b, c, n):
+    def __init__(self, E, v, R1, k, K, a, b, c, n, trial):
         self.E = E
         self.v = v
         self.R1 = R1
@@ -17,11 +17,15 @@ class viscoPlastic2D:
         self.b = b
         self.c = c
         self.n = n
+        self.trial = trial
 
 # function that returns de/dt (strain rate)
     def total_strain(self, t):
         tc = 20.0
-        Emax = 0.001
+        if (self.trial) == 'xy':
+            Emax = 0.003
+        else:
+            Emax = 0.001
         Emin = -Emax
         tcicle = t - tc*math.floor(t/tc)
 
@@ -43,7 +47,13 @@ class viscoPlastic2D:
         ET = ET.reshape(3, 1)          # Total strain
         # Calculate Stress
         stress = np.matmul(stiff, ET-Ei)
-        stress[1] = 0                     # StressY = 0
+        if (self.trial)=='x':                 # X axis traction
+            stress[1] = 0                     # StressY = 0
+        elif (self.trial)=='y':               # Y axis traction
+            stress[0] = 0                     # StressX = 0
+        elif (self.trial)=='xy':              # XY axis Shearing
+            self.ET[i, 0] = 0
+            self.ET[i, 1] = 0
         input = scaler_x.transform([[Ei[0, 0], Ei[1, 0], R, stress[0, 0],
                                      X[0, 0], X[1, 0], p]])
         # input = scaler_x.transform([[Ei[0, 0], Ei[2, 0], Ei[1, 0], R,
@@ -103,8 +113,15 @@ class viscoPlastic2D:
 
         for i in range(1, n):
             # Calculate Strain
-            self.ET[i, 0] = self.total_strain(t[i])
-            self.ET[i, 1] = -self.v * self.ET[i, 0]
+            # Calculate Strain
+            if (self.trial) == 'x':
+                self.ET[i, 0] = self.total_strain(t[i])
+                self.ET[i, 1] = -self.v * self.ET[i, 0]
+            elif (self.trial) == 'y':
+                self.ET[i, 1] = self.total_strain(t[i])
+                self.ET[i, 0] = -self.v * self.ET[i, 1]
+            elif (self.trial)=='xy':
+                self.ET[i, 2] = self.total_strain(t[i])
             # self.ET[i, 1] = self.total_strain(t[i])
             # span for next time step
             tspan = [t[i-1], t[i]]
@@ -121,7 +138,6 @@ class viscoPlastic2D:
             self.X[i, 0] = z[1][3]
             self.X[i, 1] = z[1][4]
             self.X[i, 2] = z[1][5]
-            #testing branch
             #print ("\nX x -> ", z[1][3],"X y -> ", z[1][4], "X xy -> ", z[1][5])
             self.R[i] = z[1][6]
             #print ("\nR -> ", z[1][6])
