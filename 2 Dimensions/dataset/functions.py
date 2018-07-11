@@ -65,10 +65,6 @@ class viscoPlastic2D:
             stress[1] = 0                     # StressY = 0
         elif (self.trial)=='y':               # Y axis traction
             stress[0] = 0                     # StressX = 0
-        elif (self.trial)=='xy':              # XY axis Shearing
-            self.ET[i, 0] = 0
-            self.ET[i, 1] = 0
-
         # Calculate deviatoric Stress
         S_dev = copy.deepcopy(stress)
         S_dev[0][0] -= (1./3.)*(stress[0]+stress[1])
@@ -140,7 +136,10 @@ class viscoPlastic2D:
                 self.ET[i, 1] = self.total_strain(t[i])
                 self.ET[i, 0] = -self.v * self.ET[i, 1]
             elif (self.trial)=='xy':
+                self.ET[i, 0] = 0
+                self.ET[i, 1] = 0
                 self.ET[i, 2] = self.total_strain(t[i])
+
             # span for next time step
             tspan = [t[i-1], t[i]]
             # solves for next step

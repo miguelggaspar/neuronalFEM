@@ -40,4 +40,4 @@ df = pd.DataFrame({"ET11": model.ET[:, 0], "ET22": model.ET[:, 1], "ET12": model
                    "Ee11": model.Ee[:, 0], "Ee22": model.Ee[:, 1], "Ee12": model.Ee[:, 2],
                    "Time": t})
 
-df.to_csv("data.csv", float_format='%.5f', index=False)
+df.to_csv("data_xy.csv", float_format='%.5f', index=False)
