@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Import data to make graphs
-df = pd.read_csv("data.csv")
+df = pd.read_csv("data_xy.csv")
 # Ploting style
 style = 'ggplot'
 

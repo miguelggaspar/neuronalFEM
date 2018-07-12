@@ -47,27 +47,25 @@ class viscoPlastic2D:
         ET = ET.reshape(3, 1)          # Total strain
         # Calculate Stress
         stress = np.matmul(stiff, ET-Ei)
-        if (self.trial)=='x':                 # X axis traction
+        if (self.trial) == 'xx':                 # X axis traction
             stress[1] = 0                     # StressY = 0
-        elif (self.trial)=='y':               # Y axis traction
+        elif (self.trial) == 'yy':               # Y axis traction
             stress[0] = 0                     # StressX = 0
-        elif (self.trial)=='xy':              # XY axis Shearing
-            self.ET[i, 0] = 0
-            self.ET[i, 1] = 0
-        input = scaler_x.transform([[Ei[0, 0], Ei[1, 0], R, stress[0, 0],
-                                     X[0, 0], X[1, 0], p]])
-        # input = scaler_x.transform([[Ei[0, 0], Ei[2, 0], Ei[1, 0], R,
-        #                              stress[0, 0], stress[2, 0], stress[1, 0],
-        #                              X[0, 0], X[2, 0], X[1, 0], p]])
+
+        # input = scaler_x.transform([[Ei[0, 0], Ei[1, 0], R, stress[0, 0],
+        #                              X[0, 0], X[1, 0], p]])
+        input = scaler_x.transform([[Ei[0, 0], Ei[2, 0], Ei[1, 0], R,
+                                     stress[0, 0], stress[2, 0], stress[1, 0],
+                                     X[0, 0], X[2, 0], X[1, 0], p]])
         output = scaler_y.inverse_transform((ann.predict(input)))
-        # dEIdt = np.array([[output[0][0]], [output[0][2]], [output[0][1]]])
-        # dRdt = output[0][3]
-        # dXdt = np.array([[output[0][4]], [output[0][6]], [output[0][5]]])
-        # dpdt = output[0][7]
-        dEIdt = np.array([[output[0][0]], [output[0][1]], [0]])
-        dRdt = output[0][2]
-        dXdt = np.array([[output[0][3]], [output[0][4]], [0]])
-        dpdt = output[0][5]
+        dEIdt = np.array([[output[0][0]], [output[0][2]], [output[0][1]]])
+        dRdt = output[0][3]
+        dXdt = np.array([[output[0][4]], [output[0][6]], [output[0][5]]])
+        dpdt = output[0][7]
+        # dEIdt = np.array([[output[0][0]], [output[0][1]], [0]])
+        # dRdt = output[0][2]
+        # dXdt = np.array([[output[0][3]], [output[0][4]], [0]])
+        # dpdt = output[0][5]
 
         # Store solutions
         self.stress[i, 0] = stress[0, 0]
@@ -114,10 +112,10 @@ class viscoPlastic2D:
         for i in range(1, n):
             # Calculate Strain
             # Calculate Strain
-            if (self.trial) == 'x':
+            if (self.trial) == 'xx':
                 self.ET[i, 0] = self.total_strain(t[i])
                 self.ET[i, 1] = -self.v * self.ET[i, 0]
-            elif (self.trial) == 'y':
+            elif (self.trial) == 'yy':
                 self.ET[i, 1] = self.total_strain(t[i])
                 self.ET[i, 0] = -self.v * self.ET[i, 1]
             elif (self.trial)=='xy':
