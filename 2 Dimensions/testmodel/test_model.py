@@ -3,10 +3,12 @@ import pandas as pd
 from functions import viscoPlastic2D
 from sklearn.externals import joblib
 
+print ('Testing model using trained neural networks')
+workdir = '/home/miguel/UA/tese/ViscoPlastic-ML/2 Dimensions/testmodel/'
 # Load trained model for further prediction and scalers to transform the data.
-ann = joblib.load('../train/model/mlmodel.pkl')
-scaler_x = joblib.load('../train/model/scaler_x.pkl')
-scaler_y = joblib.load('../train/model/scaler_y.pkl')
+ann = joblib.load(workdir + '../train/model/mlmodel.pkl')
+scaler_x = joblib.load(workdir + '../train/model/scaler_x.pkl')
+scaler_y = joblib.load(workdir + '../train/model/scaler_y.pkl')
 
 # number of time points
 n = 2300
@@ -16,8 +18,6 @@ t = np.linspace(0, 80, n)
 z0 = [0, 0, 0, 0, 0, 0, 0, 0]
 
 trials = ['xx', 'yy', 'xy']
-print ('Neural plasticity model')
-
 for trial in trials:
     print ('Trial: ', trial)
     # Define material parameters and trial for viscoplastic behaviour
@@ -40,5 +40,7 @@ for trial in trials:
                        "S11": model.stress[:, 0], "S22": model.stress[:, 1], "S12": model.stress[:, 2],
                        "Time": t})
 
-    df.to_csv("results/predictions_" + trial + "_2d.csv", float_format='%.5f',
-              index=False)
+    df.to_csv(workdir + "results/predictions_" + trial + "_2d.csv",
+              float_format='%.5f', index=False)
+
+print('Testing model finished')
