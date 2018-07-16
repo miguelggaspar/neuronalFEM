@@ -61,9 +61,9 @@ class viscoPlastic2D:
         ET = ET.reshape(3, 1)
 
         stress = np.matmul(stiff, ET-Ei)
-        if (self.trial)=='x':                 # X axis traction
+        if self.trial == 'xx':                 # X axis traction
             stress[1] = 0                     # StressY = 0
-        elif (self.trial)=='y':               # Y axis traction
+        elif self.trial == 'yy':               # Y axis traction
             stress[0] = 0                     # StressX = 0
         # Calculate deviatoric Stress
         S_dev = copy.deepcopy(stress)
@@ -129,13 +129,13 @@ class viscoPlastic2D:
 
         for i in range(1, nt):
             # Calculate Strain
-            if (self.trial) == 'x':
+            if self.trial == 'xx':
                 self.ET[i, 0] = self.total_strain(t[i])
                 self.ET[i, 1] = -self.v * self.ET[i, 0]
-            elif (self.trial) == 'y':
+            elif self.trial == 'yy':
                 self.ET[i, 1] = self.total_strain(t[i])
                 self.ET[i, 0] = -self.v * self.ET[i, 1]
-            elif (self.trial)=='xy':
+            elif self.trial == 'xy':
                 self.ET[i, 0] = 0
                 self.ET[i, 1] = 0
                 self.ET[i, 2] = self.total_strain(t[i])

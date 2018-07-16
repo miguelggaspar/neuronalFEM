@@ -1,8 +1,8 @@
-import os
 import numpy as np
 import pandas as pd
 from functions import viscoPlastic2D
 
+workdir = '/home/miguel/UA/tese/ViscoPlastic-ML/2 Dimensions/dataset/results/'
 # number of time points
 n = 2300
 # Time points
@@ -13,7 +13,7 @@ trials = ['xx', 'yy', 'xy']
 print ('Chaboche Constitutive Viscoplasticity Model')
 
 for trial in trials:
-    print ('Trrial: ', trial)
+    print ('Trial: ', trial)
     # Define material parameters for viscoplastic behaviour
     # E, v, R1, k, K, a, b, c, n
     # Steel 400C
@@ -45,5 +45,7 @@ for trial in trials:
                        "Ee11": model.Ee[:, 0], "Ee22": model.Ee[:, 1], "Ee12": model.Ee[:, 2],
                        "Time": t})
 
-    df.to_csv("data_" + trial + ".csv", float_format='%.5f', index=False)
-os.system("python merge_csv.py")
+    df.to_csv(workdir + "data_" + trial + ".csv",
+              float_format='%.5f', index=False)
+
+print ('Dataset Generated')
