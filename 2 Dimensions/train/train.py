@@ -4,8 +4,10 @@ from sklearn import preprocessing
 from sklearn.neural_network import MLPRegressor
 import pandas as pd
 
+print('Training Neural network')
+workdir = '/home/miguel/UA/tese/ViscoPlastic-ML/2 Dimensions/train/'
 # Load Dataset for trainig
-df = pd.read_csv("../dataset/data.csv")
+df = pd.read_csv(workdir + "../dataset/results/data.csv")
 # Choose features
 X = df.drop(["ET11", "ET22", "ET12", "dEi11", "dEi22", "dEi12", "Ee11", "Ee22",
              "Ee12", "dX11", "dX12", "dX22", "dpStrain", "dR",
@@ -38,13 +40,18 @@ y = scaler_y.transform(y)
 
 # last:
 # relu, adaptive, (7,7), lbfgs, alpha 1
-estimator = MLPRegressor(solver='lbfgs', hidden_layer_sizes=(4, 4, 12),
-                         activation='relu', learning_rate='adaptive',
+# estimator = MLPRegressor(solver='lbfgs', hidden_layer_sizes=(4, 4, 12),
+#                          activation='relu', learning_rate='adaptive',
+#                          alpha=1, random_state=1)
+#
+estimator = MLPRegressor(solver='lbfgs', hidden_layer_sizes=(20, 12, 20),
+                         activation='tanh', learning_rate='constant',
                          alpha=1, random_state=1)
 
 estimator.fit(X_train, y_train)
 # Save trained model to further use. Scalers are required too, to transform
 # the new data
-joblib.dump(estimator, 'model/mlmodel.pkl')
-joblib.dump(scaler_x, 'model/scaler_x.pkl')
-joblib.dump(scaler_y, 'model/scaler_y.pkl')
+joblib.dump(estimator, workdir + 'model/mlmodel.pkl')
+joblib.dump(scaler_x, workdir + 'model/scaler_x.pkl')
+joblib.dump(scaler_y, workdir + 'model/scaler_y.pkl')
+print('Fnish Training Neural network')

@@ -4,18 +4,18 @@ from sklearn import preprocessing
 import pandas as pd
 
 # For further use, use this line to import trained model
-gs = joblib.load('grid_results/gs.pkl')
+gs = joblib.load('grid_results_1/gs.pkl')
 
-df = pd.read_csv("../dataset/data.csv")
+df = pd.read_csv("../dataset/results/data.csv")
 
 # Choose features
 X = df.drop(["ET11", "ET22", "ET12", "dEi11", "dEi22", "dEi12", "Ee11", "Ee22",
-             "Ee12", "dX11", "dX12", "dX22", "dpStrain", "dR", "Time",
-             "Ei12", "S12", "S22", "X12"], axis=1)
+             "Ee12", "dX11", "dX12", "dX22", "dpStrain", "dR",
+             "Time"], axis=1)
 # Choose targets
 y = df.drop(["ET11", "ET22", "ET12", "Ei11", "Ei22", "Ei12", "Time",  "Ee11",
              "Ee22",  "Ee12", "X11", "X22", "X12", "pStrain", "R", "S11",
-             "S22", "S12", "dEi12", "dX12"], axis=1)
+             "S22", "S12"], axis=1)
 
 scaler_x = preprocessing.StandardScaler()
 scaler_y = preprocessing.StandardScaler()
@@ -37,5 +37,5 @@ means = gs.cv_results_['mean_test_score']
 stds = gs.cv_results_['std_test_score']
 params = gs.cv_results_['params']
 for mean, stdev, param in zip(means, stds, params):
-    if mean > 0.97 and stdev < 0.001:
+    if mean > 0.90 and stdev < 0.001:
         print("%f (%f) with: %r" % (mean, stdev, param))
