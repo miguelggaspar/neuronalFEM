@@ -7,7 +7,7 @@ ann = joblib.load('/home/miguel/UA/tese/ViscoPlastic-ML/2 Dimensions/train/model
 scaler_x = joblib.load('/home/miguel/UA/tese/ViscoPlastic-ML/2 Dimensions/train/model/scaler_x.pkl')
 scaler_y = joblib.load('/home/miguel/UA/tese/ViscoPlastic-ML/2 Dimensions/train/model/scaler_y.pkl')
 
-# print ('Python program running')
+#   print ('Python program running')
 file_1 = open('/home/miguel/state.txt', 'r')
 for line in file_1.readlines():
     values = line.rstrip().split(',')       # using rstrip to remove the \n
@@ -29,7 +29,7 @@ ET12 = float(values[13])
 
 state = np.arange(14, dtype=float)     # Initialize derivatives vector
 
-for i in range(0,14):
+for i in range(0, 14):
     # print ('inside python')
     state[i] = float(values[i])
     # print (state[i])
@@ -76,7 +76,7 @@ np.savetxt(file, [derivatives], fmt='%0.6f', delimiter=',')
 np.savetxt(file_hist_state, [state], fmt='%0.20f', delimiter=',')
 np.savetxt(file_hist_deriv, [derivatives], fmt='%0.6f', delimiter=',')
 
-#Close files
+# Close files
 file.close()
 file_hist_state.close()
 file_hist_deriv.close()

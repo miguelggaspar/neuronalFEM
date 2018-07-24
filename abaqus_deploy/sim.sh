@@ -2,6 +2,7 @@ echo "first argument (Input file): $1"
 echo "second argument (User subroutine): $2"
 
 # Prepare initial conditios for USDFLD subroutine
+cp src/statev_initial_cond.txt ~/statev.txt
 cp src/stat_initial_cond.txt ~/state.txt
 cp src/deriv_initial_cond.txt ~/derivatives.txt
 

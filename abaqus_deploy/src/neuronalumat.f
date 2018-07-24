@@ -29,6 +29,7 @@ C
 C
       DIMENSION DSTRESS(4), DDS(4,4), SDEV(3), XDEV(3)
       real(8) dEi11, dEi22, dEi12, dR, dX11, dX22, dX12, dp
+      real(8) aux1, aux2, aux3, aux4, aux5, aux6
 C      real(8) Ei11, Ei22, Ei12, R, X11, X22, X12, p
 C
 C
@@ -53,6 +54,10 @@ C
       X12 = STATEV(6)
       R = STATEV(7)
       p = STATEV(8)
+      open(unit=15, file='/home/miguel/statev.txt')
+      read (15,*) Ei11, Ei22, Ei12, R, aux1, aux2, aux3,
+     +            X11, X22, X12, p, aux4, aux5, aux6
+      CLOSE(15)
 C
 C change STRAN to DSTRAN
 C    CALCULATE STRESS MATRIX
@@ -81,13 +86,13 @@ C      write(*,*)"Stran Tensor",STRAN(1),STRAN(2),STRAN(3)
      +           ',',STRESS(1),',',STRESS(2),',',STRESS(3),
      +            ',',X11,',',X22,',',X12,',',p,
      +            ',',DSTRAN(1),',',DSTRAN(2),',',DSTRAN(3)
+      CLOSE(16)
 C
 C      WRITE(*,*)Ei11,',',Ei22,',',Ei12,',',R,
 C     +           ',',STRESS(1),',',STRESS(2),',',STRESS(3),
 C     +            ',',X11,',',X22,',',X12,',',p
 C        Print *, STRESS(1)
 C     print *, "Exit status of external_prog.exe was ", i
-      CLOSE(16)
       call system("/usr/bin/python /home/miguel/call_neuronalfem.py")
       open(unit=17, file='/home/miguel/derivatives.txt')
       read (17,*) dEi11, dEi22, dEi12, dR, dX11, dX22, dX12, dp
@@ -99,18 +104,27 @@ C
      +            ',',dp
       CLOSE(18)
 C
-      WRITE(*,*)STATEV(1),',',STATEV(2)
-      STATEV(1) = Ei11 + dEi11*DTIME(1)
-      STATEV(2) = Ei22 + dEi22*DTIME(1)
-      STATEV(3) = Ei12 + dEi12*DTIME(1)
-      STATEV(4) = X11 + dX11*DTIME(1)
-      STATEV(5) = X22 + dX22*DTIME(1)
-      STATEV(6) = X12 + dX12*DTIME(1)
-      STATEV(7) = R + dR*DTIME(1)
-      STATEV(8) = p + dp*DTIME(1)
-
-
-      WRITE(*,*)STATEV(1),',',STATEV(2)
+      WRITE(*,*)Ei11,',',Ei22
+      Ei11 = Ei11 + dEi11*DTIME(1)
+      Ei22 = Ei22 + dEi22*DTIME(1)
+      Ei12 = Ei12 + dEi12*DTIME(1)
+      X11 = X11 + dX11*DTIME(1)
+      X22 = X22 + dX22*DTIME(1)
+      X12 = X12 + dX12*DTIME(1)
+      R = R + dR*DTIME(1)
+      p = p + dp*DTIME(1)
+      open(unit=20, file='/home/miguel/statev.txt')
+      WRITE(20,*)Ei11,',',Ei22,',',Ei12,',',R,
+     +           ',',STRESS(1),',',STRESS(2),',',STRESS(3),
+     +            ',',X11,',',X22,',',X12,',',p,
+     +            ',',DSTRAN(1),',',DSTRAN(2),',',DSTRAN(3)
+      CLOSE(20)
+C
+C      CALL USDFLD(FIELD, STATEV, PNEWDT, DIRECT, T,
+C     + CELENT, TIME, DTIME, CMNAME, ORNAME, NFIELD,
+C     + NSTATV, NOEL, NPT, LAYER, KSPT, KSTEP, KINC, NDI,
+C     + NSHR, COORD, JMAC, JMATYP, MATLAYO, LACCFLA)
+      WRITE(*,*)Ei11,',',Ei22
 C
       write(*,*)"Outside UMAT"
       RETURN
