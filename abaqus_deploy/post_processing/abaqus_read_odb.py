@@ -33,8 +33,8 @@ myViewport.view.fitView()
 myViewport.odbDisplay.basicOptions.setValues(coordSystemDisplay=OFF, translucencySort=ON)
 myViewport.odbDisplay.commonOptions.setValues(visibleEdges=FEATURE)  # NONE
 myViewport.odbDisplay.contourOptions.setValues(contourStyle=CONTINUOUS) # DISCRETE CONTINUOUS
-#myViewport.odbDisplay.contourOptions.setValues(showMinLocation=ON,showMaxLocation=ON)
-#myViewport.odbDisplay.contourOptions.setValues(numIntervals=6)
+# myViewport.odbDisplay.contourOptions.setValues(showMinLocation=ON,showMaxLocation=ON)
+# myViewport.odbDisplay.contourOptions.setValues(numIntervals=6)
 myViewport.viewportAnnotationOptions.setValues(triad=OFF, title=OFF, state=ON,  compass=OFF,
                                               legend=ON, legendPosition=(75, 95), legendBox=OFF,
                                               legendFont='-*-verdana-medium-r-normal-*-*-120-*-*-p-*-*-*',
