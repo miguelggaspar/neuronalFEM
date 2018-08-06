@@ -26,10 +26,15 @@ p = float(values[10])
 ET11 = float(values[11])
 ET22 = float(values[12])
 ET12 = float(values[13])
+kinc = float(values[14])
+kstep = float(values[15])
+noel = float(values[16])
+npt = float(values[17])
+kspt = float(values[18])
 
-state = np.arange(14, dtype=float)     # Initialize derivatives vector
+state = np.arange(19, dtype=float)     # Initialize derivatives vector
 
-for i in range(0, 14):
+for i in range(0, 19):
     # print ('inside python')
     state[i] = float(values[i])
     # print (state[i])

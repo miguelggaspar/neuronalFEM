@@ -52,6 +52,23 @@ def plot_results(stat, deriv):
     plt.plot(stat['p'])
     plt.subplot(1, 2, 2)
     plt.plot(deriv['dp'])
+    plt.figure(figsize=(8, 5), dpi=80)
+    props = ['S11', 'S22', 'S12']
+    count = 1
+    for prop in props:
+        plt.subplot(1, 3, count)
+        plt.plot(stat[prop])
+        count += 1
+    plt.figure(figsize=(8, 5), dpi=80)
+    props = ['ET11', 'S11', 'ET22', 'S22', 'ET12', 'S12']
+    count = 1
+    n = 0
+    # for :
+    #     plt.subplot(1, 3, count)
+    #     plt.plot(stat[props[2*n]], stat[props[2*n+1]])
+    #     n += 1
+    #     print (n)
+    #     count += 1
 
 
 # Driver program

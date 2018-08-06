@@ -23,6 +23,6 @@ cp src/deriv_initial_cond.txt ~/derivatives.txt
 mv derivatives.txt der_$1.txt
 mv state.txt stat_$1.txt
 # Delete all files except .inp, .f, .sh and .py files
-rm $(ls -1 | grep -v '.*\.py' | grep -v '.*\.f' | grep -v '.*\.inp' |
-  grep -v '.*\.odb' | grep -v '.*\.sh' | grep -v '.*\.bkp' | grep -v '.*\.txt')
-rm *.fil
+# rm $(ls -1 | grep -v '.*\.py' | grep -v '.*\.f' | grep -v '.*\.inp' |
+#   grep -v '.*\.odb' | grep -v '.*\.sh' | grep -v '.*\.bkp' | grep -v '.*\.txt')
+# rm *.fil
