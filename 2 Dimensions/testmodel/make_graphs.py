@@ -13,7 +13,7 @@ for trial in trials:
 
     # Plot Total, Elastic and Inelastic Strains
     def save_graph(legends, n_hand, data, labels, name, condition):
-        plt.figure(figsize=(8, 5), dpi=80)
+        # plt.figure(figsize=(8, 5), dpi=80)
         plt.style.use(style)
         # plt.ylim(-0.075, 0.075)                         # set the xlim to xmin, xmax
         color = ['b', 'r', 'k', 'g', 'y', 'brown']
@@ -23,13 +23,19 @@ for trial in trials:
         for n in range(n_hand):
             plt.subplot(n_hand, 1, n+1)
             if condition == 1:
-                plt.plot(data[0], data[n+1], color[n])
-                plt.legend(legends[n:], loc=0)
+                plt.plot(data[0], data[n+1], label=legend[n], color=color[n])
+                # plt.legend(legends[n:], loc=0)
+                # plt.legend(legends[n:])
+                plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
+
             else:
-                plt.plot(data[0], data[2*n+1], color[2*n])
-                plt.plot(data[0], data[2*n+2], color[2*n+1])
-                plt.legend(legends[2*n:2*n+2], loc=0)
-        plt.savefig(name)
+                plt.plot(data[0], data[2*n+1], label=legend[2*n], color=color[2*n])
+                plt.plot(data[0], data[2*n+2], label=legend[2*n+1], color=color[2*n+1])
+                # plt.legend(legends[2*n:2*n+2], loc=0)
+                # plt.legend(legends[2*n:2*n+2])
+                plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
+
+        plt.savefig(name, bbox_inches='tight')
 
     # Plot and save graphs of back stress rate
     legend = [r'Predicted $\dot \chi_{x}$', r'Real $\dot \chi_{x}$',
