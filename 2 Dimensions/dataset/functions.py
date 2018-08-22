@@ -35,11 +35,10 @@ class viscoPlastic2D:
 # function that returns de/dt (strain rate)
     def total_strain(self, t):
         tc = 20.0
-        Emax = 0.036/100.000
         if (self.trial) == 'xy':
-            Emax = 0.003
+            Emax = 0.003            # previous was 0.003
         else:
-            Emax = 0.001
+            Emax = 0.001           # previous was 0.001
         Emin = -Emax
         tcicle = t - tc*math.floor(t/tc)
 

@@ -15,11 +15,11 @@ def save_graph(legends, n_hand, data, labels, name, condition):
     fig.text(0.02, 0.5, labels[1], va='center', rotation='vertical')
     for n in range(n_hand):
         if condition == 1:
-            plt.plot(data[2*n], data[2*n+1], color[n])
+            plt.plot(data[2*n], data[2*n+1], label=legend[n], color=color[n])
         else:
-            plt.plot(data[0], data[n+1], color[n])
-    plt.legend(legends[:], loc=0)
-    plt.savefig(name)
+            plt.plot(data[0], data[n+1], label=legend[n], color=color[n])
+        plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
+    plt.savefig(name, bbox_inches='tight')
 
 
 # Plot Total, Elastic and Inelastic Strains

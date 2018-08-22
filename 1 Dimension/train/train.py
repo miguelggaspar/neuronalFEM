@@ -30,10 +30,15 @@ y_test = scaler_y.transform(y_test)
 
 X = scaler_x.transform(X)
 y = scaler_y.transform(y)
-
+#
 estimator = MLPRegressor(solver='lbfgs', hidden_layer_sizes=(4,),
                          activation='relu', learning_rate='adaptive',
                          alpha=1, random_state=1)
+
+
+# estimator = MLPRegressor(solver='lbfgs', hidden_layer_sizes=(15, 10, 20),
+#                          activation='relu', learning_rate='invscaling',
+#                          alpha=1, random_state=1)
 
 estimator.fit(X_train, y_train)
 # Save trained model to further use. Scalers are required too, to transform

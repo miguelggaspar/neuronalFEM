@@ -23,12 +23,13 @@ for trial in trials:
         for n in range(n_hand):
             plt.subplot(n_hand, 1, n+1)
             if condition == 1:
-                plt.plot(data[2*n], data[2*n+1], color[n])
+                plt.plot(data[2*n], data[2*n+1], label=legend[n], color=color[n])
             else:
-                plt.plot(data[0], data[n+1], color[n])
+                plt.plot(data[0], data[n+1], label=legend[n], color=color[n])
             plt.axis('auto')
-            plt.legend(legends[n:], loc=0)
-        plt.savefig(name)
+            plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
+            # plt.legend(legends[n:], loc=0)
+        plt.savefig(name, bbox_inches='tight')
 
     # Plot and save graphs of back stress rate
     legend = [r'$\dot \chi_{x}$',

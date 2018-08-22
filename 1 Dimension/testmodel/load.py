@@ -14,13 +14,18 @@ def save_graph(legends, n_hand, data, labels, name, condition):
     color = ['b', 'r', 'k', 'g', 'y', 'brown']
     fig.text(0.51, 0.035, labels[0], ha='center')
     fig.text(0.02, 0.5, labels[1], va='center', rotation='vertical')
+
     for n in range(n_hand):
         if condition == 1:
             plt.plot(data[2*n], data[2*n+1], color[n])
-        else:
+            plt.legend(legends[:], loc=0)
+        elif condition == 0:
             plt.plot(data[0], data[n+1], color[n])
-    plt.legend(legends[:], loc=0)
-    plt.savefig(name)
+            plt.legend(legends[:], loc=0)
+        elif condition == 2:
+            plt.plot(data[0], data[n+1], label=legend[n], color=color[n])
+            plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
+    plt.savefig(name, bbox_inches='tight')
 
 
 # Plot Total, Elastic and Inelastic Strains
@@ -71,7 +76,7 @@ legend = [r'$R_{real}$', r'$R_{pred}$',
           r'$\sigma_{real}$', r'$\sigma_{pred}$']
 data = [df['Time'], df['R'], pred['R'], df['X'], pred['X'], df['Stress'], pred['S']]
 labels = ['Time [s]', 'Stress [MPa]']
-save_graph(legend, 6, data, labels, 'graphs/comp_X_R_sigma_1d', 0)
+save_graph(legend, 6, data, labels, 'graphs/comp_X_R_sigma_1d', 2)
 
 # Plot and save graphs of Stress
 legend = [r'$R_{pred}$',
@@ -79,7 +84,7 @@ legend = [r'$R_{pred}$',
           r'$\sigma_{pred}$']
 data = [df['Time'], pred['R'], pred['X'], pred['S']]
 labels = ['Time [s]', 'Stress [MPa]']
-save_graph(legend, 3, data, labels, 'graphs/X_R_sigma_1d', 0)
+save_graph(legend, 3, data, labels, 'graphs/X_R_sigma_1d', 2)
 
 # Plot and save graphs of Stress - Strain
 legend = ['Real cyclic loading',

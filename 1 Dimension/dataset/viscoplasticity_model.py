@@ -1,9 +1,6 @@
 import numpy as np
-import matplotlib.pyplot as plt
 import pandas as pd
-from scipy.integrate import odeint
 from functions import viscoPlastic1D
-
 
 # initial conditions - inelastic strain  / X / R
 z0 = [0, 0, 50.0]
@@ -15,7 +12,7 @@ n = 3000
 # K, n, H, D, h, d
 model = viscoPlastic1D(50.0, 3.0, 5000.0, 100.0, 300.0, 0.6)
 # Time points
-t = np.linspace(0, 100, n)
+t = np.linspace(0, 80, n)
 # Solve Chaboche's 1D model with given material parameters
 model.solve(n, z0, t)
 

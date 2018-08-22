@@ -17,7 +17,7 @@ n = 3000
 # K, n, H, D, h, d
 model = viscoPlastic1D(50.0, 3.0, 5000.0, 100.0, 300.0, 0.6)
 # Time points
-t = np.linspace(0, 100, n)
+t = np.linspace(0, 170, n)
 # Solve Chaboche's 1D model with given material parameters
 model.solve(n, z0, t, ann, scaler_x, scaler_y)
 # Calculate elastic strain

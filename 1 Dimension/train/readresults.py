@@ -4,9 +4,9 @@ from sklearn import preprocessing
 import pandas as pd
 
 # For further use, use this line to import trained model
-gs = joblib.load('gs.pkl')
+gs = joblib.load('results/gs.pkl')
 
-df = pd.read_csv("../../dataset/data.csv")
+df = pd.read_csv("../dataset/data.csv")
 
 X = df.drop(["dIStrain", "dX", "dR", "Time"], axis=1)
 y = df.drop(["IStrain", "TStrain", "X", "R", "Time", "Stress"], axis=1)
@@ -33,5 +33,9 @@ print("Best: %f using %s" % (gs.best_score_, gs.best_params_))
 means = gs.cv_results_['mean_test_score']
 stds = gs.cv_results_['std_test_score']
 params = gs.cv_results_['params']
+count = 0
 for mean, stdev, param in zip(means, stds, params):
-    print("%f (%f) with: %r" % (mean, stdev, param))
+    if (mean > 0.98):
+        print("%f (%f) with: %r" % (mean, stdev, param))
+    count += 1
+print (count)

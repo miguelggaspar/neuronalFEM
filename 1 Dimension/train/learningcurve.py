@@ -9,12 +9,15 @@ from sklearn.model_selection import learning_curve
 from sklearn.model_selection import ShuffleSplit
 
 # For further use, use this line to import trained model
-gs = joblib.load('gs.pkl')
+gs = joblib.load('model/mlmodel.pkl')
 
 df = pd.read_csv("../dataset/data.csv")
 
-X = df.drop(["dIStrain", "dX", "dR", "Time"], axis=1)
-y = df.drop(["IStrain", "TStrain", "X", "R", "Time", "Stress"], axis=1)
+# Choose features
+X = df.drop(["dIStrain", "dX", "dR", "Time", "TStrain", "EStrain"], axis=1)
+# Choose targets
+y = df.drop(["IStrain", "TStrain", "X", "R", "Time", "Stress",
+             "EStrain"], axis=1)
 
 Xtime = df.drop(["dIStrain", "dX", "dR", "IStrain", "TStrain",
                  "X", "R", "Stress"], axis=1)
@@ -107,13 +110,13 @@ def plot_learning_curve(estimator, title, X, y, ylim=None, cv=None,
     return plt
 
 
-estimator = MLPRegressor(solver='lbfgs', hidden_layer_sizes=(6,),
-                         activation='logistic', learning_rate='adaptive',
+estimator = MLPRegressor(solver='lbfgs', hidden_layer_sizes=(4,),
+                         activation='relu', learning_rate='adaptive',
                          alpha=1, random_state=1)
 
 title = "Learning Curves (Naive Bayes)"
 # Cross validation with 100 iterations to get smoother mean test and train
 # score curves, each time with 20% data randomly selected as a validation set.
-cv = ShuffleSplit(n_splits=20, test_size=0.2, random_state=42)
-plot_learning_curve(estimator, title, X, y, cv=cv, ylim=(0.0, 1.01), n_jobs=4)
+cv = ShuffleSplit(n_splits=2, test_size=0.2, random_state=42)
+plot_learning_curve(estimator, title, X, y, cv=cv, ylim=(0.0, 1.01), n_jobs=10)
 plt.show()
