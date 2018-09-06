@@ -4,7 +4,8 @@ from sklearn import preprocessing
 import pandas as pd
 
 # For further use, use this line to import trained model
-gs = joblib.load('results/gs.pkl')
+# gs = joblib.load('results/gs.pkl')
+gs = joblib.load('gs.pkl')
 
 df = pd.read_csv("../dataset/data.csv")
 
@@ -35,7 +36,7 @@ stds = gs.cv_results_['std_test_score']
 params = gs.cv_results_['params']
 count = 0
 for mean, stdev, param in zip(means, stds, params):
-    if (mean > 0.98):
-        print("%f (%f) with: %r" % (mean, stdev, param))
+    print("%f (%f) with: %r" % (mean, stdev, param))
+    # if (mean > 0.10 and mean <0.2 ):
     count += 1
 print (count)

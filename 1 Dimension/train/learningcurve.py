@@ -104,7 +104,7 @@ def plot_learning_curve(estimator, title, X, y, ylim=None, cv=None,
     plt.plot(train_sizes, train_scores_mean, 'o-', color="r",
              label="Training score")
     plt.plot(train_sizes, test_scores_mean, 'o-', color="g",
-             label="Cross-validation score")
+             label="Test score")
 
     plt.legend(loc="best")
     return plt
@@ -112,11 +112,25 @@ def plot_learning_curve(estimator, title, X, y, ylim=None, cv=None,
 
 estimator = MLPRegressor(solver='lbfgs', hidden_layer_sizes=(4,),
                          activation='relu', learning_rate='adaptive',
-                         alpha=1, random_state=1)
+                         alpha=1, random_state=1, verbose=True)
 
-title = "Learning Curves (Naive Bayes)"
+estimator1 = MLPRegressor(solver='sgd', hidden_layer_sizes=(4,),
+                          activation='relu', learning_rate='adaptive',
+                          alpha=1, random_state=1, verbose=True,
+                          early_stopping=True)
+
+
+# estimator = MLPRegressor(solver='lbfgs', hidden_layer_sizes=(15, 10, 20),
+#                          activation='relu', learning_rate='invscaling',
+#                          alpha=1, random_state=1)
+
+estimator1.fit(X_train, y_train)
+
+
+title = "Learning Curve"
 # Cross validation with 100 iterations to get smoother mean test and train
 # score curves, each time with 20% data randomly selected as a validation set.
 cv = ShuffleSplit(n_splits=2, test_size=0.2, random_state=42)
-plot_learning_curve(estimator, title, X, y, cv=cv, ylim=(0.0, 1.01), n_jobs=10)
-plt.show()
+plot_learning_curve(estimator, title, X, y, cv=cv, ylim=(0.0, 1.01), n_jobs=1)
+plt.savefig('graphs/learning_curve_1d', bbox_inches='tight')
+# plt.show()

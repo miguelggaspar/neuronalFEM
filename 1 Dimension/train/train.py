@@ -3,6 +3,8 @@ from sklearn.model_selection import train_test_split
 from sklearn import preprocessing
 from sklearn.neural_network import MLPRegressor
 import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
 
 # Load Dataset for trainig
 df = pd.read_csv("../dataset/data.csv")
@@ -33,7 +35,8 @@ y = scaler_y.transform(y)
 #
 estimator = MLPRegressor(solver='lbfgs', hidden_layer_sizes=(4,),
                          activation='relu', learning_rate='adaptive',
-                         alpha=1, random_state=1)
+                         alpha=1, random_state=1, verbose=True,
+                         early_stopping=True)
 
 
 # estimator = MLPRegressor(solver='lbfgs', hidden_layer_sizes=(15, 10, 20),

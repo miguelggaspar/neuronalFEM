@@ -36,12 +36,31 @@ hidden_size_2 = [x for x in itertools.product(np.linspace(1, 20, 5, dtype=int),
                                               repeat=3)]
 hidden_sizes.extend(hidden_size_2)
 
+
+
+# gs = GridSearchCV(MLPRegressor(), param_grid={
+#     'hidden_layer_sizes': hidden_sizes,
+#     'activation': ['logistic', 'tanh', 'relu'],
+#     'solver': ["lbfgs", "sgd", "adam"],
+#     'learning_rate': ['constant', 'invscaling', 'adaptive'],
+#     'alpha': [np.logspace(-5, 3, 5).all()]})
+
+
+# gs = GridSearchCV(MLPRegressor(), param_grid={
+#     'hidden_layer_sizes': [4],
+#     'activation': ['relu'],
+#     'solver': ["lbfgs"],
+#     'learning_rate': ['adaptive'],
+#     'alpha': [1]})
+
+# relu lbfgs (invscaling, constant, adaptive) [(2), (3), (4)]
+
 gs = GridSearchCV(MLPRegressor(), param_grid={
-    'hidden_layer_sizes': hidden_sizes,
-    'activation': ['logistic', 'tanh', 'relu'],
-    'solver': ["lbfgs", "sgd", "adam"],
+    'hidden_layer_sizes': [2, 3, 4],
+    'activation': ['relu'],
+    'solver': ["lbfgs"],
     'learning_rate': ['constant', 'invscaling', 'adaptive'],
-    'alpha': [np.logspace(-5, 3, 5).all()]})
+    'alpha': [1]})
 
 gs.fit(X_train, y_train)
 #

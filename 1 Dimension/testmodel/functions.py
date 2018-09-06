@@ -17,7 +17,8 @@ class viscoPlastic1D:
 # function that returns de/dt (strain rate)
     def total_strain(self, t):
         tc = 20.0
-        Emax = 0.036
+        # Emax = 0.036
+        Emax = 0.072
         Emin = -Emax
         tcicle = t - tc*math.floor(t/tc)
 
