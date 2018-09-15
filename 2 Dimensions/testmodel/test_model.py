@@ -11,6 +11,7 @@ scaler_x = joblib.load(workdir + '../train/model/scaler_x.pkl')
 scaler_y = joblib.load(workdir + '../train/model/scaler_y.pkl')
 
 # number of time points
+# n = 2300
 n = 2300
 # Time points
 t = np.linspace(0, 80, n)

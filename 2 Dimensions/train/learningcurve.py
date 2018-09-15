@@ -10,15 +10,18 @@ from sklearn.model_selection import ShuffleSplit
 # For further use, use this line to import trained model
 # gs = joblib.load('gs.pkl')
 
-df = pd.read_csv("../dataset/data.csv")
+df = pd.read_csv("../dataset/results/data.csv")
 
+# Choose features
 X = df.drop(["ET11", "ET22", "ET12", "dEi11", "dEi22", "dEi12", "Ee11", "Ee22",
-             "Ee12", "dX11", "dX12", "dX22", "dpStrain", "dR", "Time",
-             "Ei12", "S12", "S22", "X12"], axis=1)
+             "Ee12", "dX11", "dX12", "dX22", "dpStrain", "dR",
+             "Time"], axis=1)
+
 # Choose targets
 y = df.drop(["ET11", "ET22", "ET12", "Ei11", "Ei22", "Ei12", "Time",  "Ee11",
              "Ee22",  "Ee12", "X11", "X22", "X12", "pStrain", "R", "S11",
-             "S22", "S12", "dEi12", "dX12"], axis=1)
+             "S22", "S12"], axis=1)
+
 scaler_x = preprocessing.StandardScaler()
 scaler_y = preprocessing.StandardScaler()
 
@@ -102,18 +105,22 @@ def plot_learning_curve(estimator, title, X, y, ylim=None, cv=None,
     plt.plot(train_sizes, train_scores_mean, 'o-', color="r",
              label="Training score")
     plt.plot(train_sizes, test_scores_mean, 'o-', color="g",
-             label="Cross-validation score")
+             label="Validation score")
 
     plt.legend(loc="best")
     return plt
 
 
-estimator = MLPRegressor(solver='lbfgs', hidden_layer_sizes=(4,4),
-                         activation='relu', learning_rate='adaptive',
+# estimator = MLPRegressor(solver='lbfgs', hidden_layer_sizes=(20, 12, 20),
+#                          activation='tanh', learning_rate='constant',
+#                          alpha=1, random_state=1)
+#
+estimator = MLPRegressor(solver='sgd', hidden_layer_sizes=(20, 20, 20),
+                         activation='relu', learning_rate='constant',
                          alpha=1, random_state=1)
-title = "Learning Curves (Naive Bayes)"
+title = "Learning Curve"
 # Cross validation with 100 iterations to get smoother mean test and train
 # score curves, each time with 20% data randomly selected as a validation set.
 cv = ShuffleSplit(n_splits=20, test_size=0.2, random_state=42)
 plot_learning_curve(estimator, title, X, y, cv=cv, ylim=(0.0, 1.01), n_jobs=4)
-plt.show()
+plt.savefig('graphs/learning_curve_2d', bbox_inches='tight')

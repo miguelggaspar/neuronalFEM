@@ -23,9 +23,9 @@ class viscoPlastic2D:
     def total_strain(self, t):
         tc = 20.0
         if (self.trial) == 'xy':
-            Emax = 0.003            # previous was 0.003
+            Emax = 0.0035            # previous was 0.003
         else:
-            Emax = 0.001           # previous was 0.001
+            Emax = 0.0015           # previous was 0.001
         Emin = -Emax
         tcicle = t - tc*math.floor(t/tc)
 
@@ -57,7 +57,9 @@ class viscoPlastic2D:
         input = scaler_x.transform([[Ei[0, 0], Ei[2, 0], Ei[1, 0], R,
                                      stress[0, 0], stress[2, 0], stress[1, 0],
                                      X[0, 0], X[2, 0], X[1, 0], p]])
+
         output = scaler_y.inverse_transform((ann.predict(input)))
+
         dEIdt = np.array([[output[0][0]], [output[0][2]], [output[0][1]]])
         dRdt = output[0][3]
         dXdt = np.array([[output[0][4]], [output[0][6]], [output[0][5]]])
@@ -94,6 +96,8 @@ class viscoPlastic2D:
         self.dp = np.zeros(n)
         self.dR = np.zeros(n)
         self.stress = np.zeros((n, 3))
+        self.input = np.zeros((n, 12))
+        self.score = np.zeros(n)
         # record initial conditions
         self.Ei[0, 0] = z0[0]        # Inelastic strain xx direction
         self.Ei[0, 1] = z0[1]        # Inelastic strain yy direction

@@ -4,6 +4,7 @@ from functions import viscoPlastic2D
 
 workdir = '/home/miguel/UA/tese/ViscoPlastic-ML/2 Dimensions/dataset/results/'
 # number of time points
+# n = 2300
 n = 2300
 # Time points
 t = np.linspace(0, 80, n)

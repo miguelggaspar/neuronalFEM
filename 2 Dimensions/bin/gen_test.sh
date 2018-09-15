@@ -4,8 +4,6 @@ python ../dataset/viscoplasticity_model.py
 #python ../dataset/load.py
 # Merge all trial's data to one .csv file
 python ../dataset/merge_csv.py
-# Train the mlp regressor
-python3 ../train/train.py
 # Testing model
 python3 ../testmodel/test_model.py
 # Making graphs for debugging

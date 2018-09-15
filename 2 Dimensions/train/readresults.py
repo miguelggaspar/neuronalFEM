@@ -37,5 +37,6 @@ means = gs.cv_results_['mean_test_score']
 stds = gs.cv_results_['std_test_score']
 params = gs.cv_results_['params']
 for mean, stdev, param in zip(means, stds, params):
-    if mean > 0.90 and stdev < 0.001:
-        print("%f (%f) with: %r" % (mean, stdev, param))
+    if mean > 0.90:
+        if param['solver'] == 'sgd':
+            print("%f (%f) with: %r" % (mean, stdev, param))

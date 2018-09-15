@@ -36,9 +36,9 @@ class viscoPlastic2D:
     def total_strain(self, t):
         tc = 20.0
         if (self.trial) == 'xy':
-            Emax = 0.003            # previous was 0.003
+            Emax = 0.0035   #0.0035         # previous was 0.003
         else:
-            Emax = 0.001           # previous was 0.001
+            Emax = 0.0015    #0.002        # previous was 0.001
         Emin = -Emax
         tcicle = t - tc*math.floor(t/tc)
 
