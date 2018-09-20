@@ -7,7 +7,7 @@ from scipy.integrate import odeint
 
 class viscoPlastic2D:
 
-    def __init__(self, E, v, R1, k, K, a, b, c, n, nt, trial):
+    def __init__(self, E, v, R1, k, K, a, b, c, n, nt, trial, Emax):
         self.E = E
         self.v = v
         self.R1 = R1
@@ -17,6 +17,7 @@ class viscoPlastic2D:
         self.b = b
         self.c = c
         self.n = n
+        self.Emax = Emax
         self.ET = np.zeros((nt, 3))
         self.Ee = np.zeros((nt, 3))
         self.Ei = np.zeros((nt, 3))
@@ -36,9 +37,9 @@ class viscoPlastic2D:
     def total_strain(self, t):
         tc = 20.0
         if (self.trial) == 'xy':
-            Emax = 0.036   #0.0035         # previous was 0.003
+            Emax = self.Emax   #0.0035         # previous was 0.003
         else:
-            Emax = 0.036    #0.002        # previous was 0.001
+            Emax = self.Emax    #0.002        # previous was 0.001
         Emin = -Emax
         tcicle = t - tc*math.floor(t/tc)
 

@@ -27,7 +27,7 @@ def save_graphs(legends, n_hand, data, labels, name, condition):
             # plt.legend(legends[2*n:2*n+2])
             plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
 
-        plt.savefig(name, bbox_inches='tight')
+        plt.savefig(name + '.png', bbox_inches='tight')
 
 
 def get_score(workdir_ann, df):

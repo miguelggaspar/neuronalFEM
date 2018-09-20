@@ -94,7 +94,7 @@ for nodes in estimator.hidden_layer_sizes:
     dfs = pd.concat([dfs, df1], axis=1)
     count += 1
 
-dfs.to_csv(workdir + "teste.csv",
+dfs.to_csv(workdir + "training_results.csv",
            float_format='%.5f', index=False, mode='a', header=False)
 
 savePerformance(params, X_train, y_train, 'teste.txt')
