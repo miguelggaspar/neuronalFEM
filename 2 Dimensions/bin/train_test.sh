@@ -9,7 +9,7 @@ echo "fifth argument (Emax value): $5"
 ####                  TRAINING                              ####
 ################################################################
 # Train the mlp regressor
-python3 ../train/train.py
+python3 ../train/src/train.py
 
 
 ################################################################
@@ -19,6 +19,6 @@ python3 ../train/train.py
 rm -rf ../testmodel/results/*.csv
 rm -rf ../testmodel/graphs/xx/*.png ../testmodel/graphs/yy/*.png ../testmodel/graphs/xy/*.png
 # Test model
-python3 ../testmodel/test_model.py $1 $2 $3 $4 $5
+python3 ../testmodel/src/test_model.py $1 $2 $3 $4 $5
 # Making graphs for debugging
-python3 ../testmodel/compare.py $3 $4 $5
+python3 ../testmodel/src/compare.py $3 $4 $5

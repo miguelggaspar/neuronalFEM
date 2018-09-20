@@ -11,7 +11,7 @@ echo "fifth argument (Emax value): $5"
 rm -rf ../dataset/results/*.csv
 rm -rf ../dataset/graphs/xx/*.png ../dataset/graphs/yy/*.png ../dataset/graphs/xy/*.png
 # Generate dataset based on a defined viscoplasticity model
-python ../dataset/viscoplasticity_model.py $1 $2 $3 $4 $5
+python ../dataset/src/viscoplasticity_model.py $1 $2 $3 $4 $5
 
 
 ################################################################
@@ -21,6 +21,6 @@ python ../dataset/viscoplasticity_model.py $1 $2 $3 $4 $5
 rm -rf ../testmodel/results/*.csv
 rm -rf ../testmodel/graphs/xx/*.png ../testmodel/graphs/yy/*.png ../testmodel/graphs/xy/*.png
 # Test model
-python3 ../testmodel/test_model.py $1 $2 $3 $4 $5
+python3 ../testmodel/src/test_model.py $1 $2 $3 $4 $5
 # Making graphs for debugging
-python3 ../testmodel/compare.py $3 $4 $5
+python3 ../testmodel/src/compare.py $3 $4 $5
