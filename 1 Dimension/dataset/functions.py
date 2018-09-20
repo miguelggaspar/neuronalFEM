@@ -18,7 +18,7 @@ class viscoPlastic1D:
     def total_strain(self, t):
         tc = 20.0
         # Emax = 0.036
-        Emax = 0.072
+        Emax = 0.036
         Emin = -Emax
         tcicle = t - tc*math.floor(t/tc)
 

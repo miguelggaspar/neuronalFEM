@@ -4,7 +4,7 @@ from functions import viscoPlastic2D
 from sklearn.externals import joblib
 
 print ('Testing model using trained neural networks')
-workdir = '/home/miguel/UA/tese/ViscoPlastic-ML/2 Dimensions/testmodel/'
+workdir = '/home/miguel/Documents/tese/ViscoPlastic-ML/2 Dimensions/testmodel/'
 # Load trained model for further prediction and scalers to transform the data.
 ann = joblib.load(workdir + '../train/model/mlmodel.pkl')
 scaler_x = joblib.load(workdir + '../train/model/scaler_x.pkl')

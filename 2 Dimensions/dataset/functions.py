@@ -36,9 +36,9 @@ class viscoPlastic2D:
     def total_strain(self, t):
         tc = 20.0
         if (self.trial) == 'xy':
-            Emax = 0.0035   #0.0035         # previous was 0.003
+            Emax = 0.036   #0.0035         # previous was 0.003
         else:
-            Emax = 0.0015    #0.002        # previous was 0.001
+            Emax = 0.036    #0.002        # previous was 0.001
         Emin = -Emax
         tcicle = t - tc*math.floor(t/tc)
 
@@ -76,9 +76,10 @@ class viscoPlastic2D:
         J = math.sqrt((3./2.)*np.matmul((S_dev-X_dev).transpose(), S_dev-X_dev))
         self.J[i] = J
         crit = (J - R - self.k) / self.K
+
         self.crit[i] = crit
         # print "crit ->> \n", crit
-        if crit < 0:          # Elastic behavior
+        if (J/self.K) < ((R + self.k)/self.K):          # Elastic behavior
             dpdt = 0
             dEIdt = np.array([[0], [0], [0]])
             dXdt = np.array([[0], [0], [0]])

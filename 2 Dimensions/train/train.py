@@ -20,7 +20,7 @@ def savePerformance(params, X_train, y_train, filename):
 
 
 print('Training Neural network')
-workdir = '/home/miguel/UA/tese/ViscoPlastic-ML/2 Dimensions/train/'
+workdir = '/home/miguel/Documents/tese/ViscoPlastic-ML/2 Dimensions/train/'
 # Load Dataset for trainig
 df = pd.read_csv(workdir + "../dataset/results/data.csv")
 # Choose features

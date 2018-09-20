@@ -59,5 +59,3 @@ legend = ['Reverse cyclic loading']
 data = [df['TStrain'], df['Stress']]
 labels = ['Total Strain [%]', 'Total Stress [MPa]']
 save_graph(legend, 1, data, labels, 'graphs/stress_strain_1d', 1)
-
-plt.show()

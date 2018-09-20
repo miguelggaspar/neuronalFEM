@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 print ('Creating and saving graphs for the dataset')
-workdir = '/home/miguel/UA/tese/ViscoPlastic-ML/2 Dimensions/dataset/graphs/'
+workdir = '/home/miguel/Documents/tese/ViscoPlastic-ML/2 Dimensions/dataset/graphs/'
 trials = ['xx', 'yy', 'xy']
 # Ploting style
 style = 'ggplot'

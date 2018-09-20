@@ -4,8 +4,8 @@ from compare_utils import save_graphs, get_score
 
 
 print ('Creating and saving graphs for the tested model')
-workdir = '/home/miguel/UA/tese/ViscoPlastic-ML/2 Dimensions/testmodel/'
-workd_gra = '/home/miguel/UA/tese/ViscoPlastic-ML/2 Dimensions/testmodel/graphs/'
+workdir = '/home/miguel/Documents/tese/ViscoPlastic-ML/2 Dimensions/testmodel/'
+workd_gra = '/home/miguel/Documents/tese/ViscoPlastic-ML/2 Dimensions/testmodel/graphs/'
 trials = ['xx', 'yy', 'xy']
 style = 'ggplot'
 

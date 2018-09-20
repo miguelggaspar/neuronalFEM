@@ -14,6 +14,6 @@ def merge_csv_files(files, workdir):
 if __name__ == "__main__":
     print ('Merge csv files for training')
     files = ['data_xx', 'data_yy', 'data_xy']
-    workdir = '/home/miguel/UA/tese/ViscoPlastic-ML/2 Dimensions/dataset/results/'
+    workdir = '/home/miguel/Documents/tese/ViscoPlastic-ML/2 Dimensions/dataset/results/'
     merge_csv_files(files, workdir)
     print ('csv file ready for training')

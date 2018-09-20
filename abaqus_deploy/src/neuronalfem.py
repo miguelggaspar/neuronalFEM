@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 import numpy as np
 from sklearn.externals import joblib
-workdir = '/home/miguel/UA/tese/ViscoPlastic-ML/abaqus_deploy/'
+workdir = '/home/miguel/Documents/tese/ViscoPlastic-ML/abaqus_deploy/'
 # Load trained model for further prediction and scalers to transform the data.
-ann = joblib.load('/home/miguel/UA/tese/ViscoPlastic-ML/2 Dimensions/train/model/mlmodel.pkl')
-scaler_x = joblib.load('/home/miguel/UA/tese/ViscoPlastic-ML/2 Dimensions/train/model/scaler_x.pkl')
-scaler_y = joblib.load('/home/miguel/UA/tese/ViscoPlastic-ML/2 Dimensions/train/model/scaler_y.pkl')
+ann = joblib.load('/home/miguel/Documents/tese/ViscoPlastic-ML/2 Dimensions/train/model/mlmodel.pkl')
+scaler_x = joblib.load('/home/miguel/Documents/tese/ViscoPlastic-ML/2 Dimensions/train/model/scaler_x.pkl')
+scaler_y = joblib.load('/home/miguel/Documents/tese/ViscoPlastic-ML/2 Dimensions/train/model/scaler_y.pkl')
 
 #   print ('Python program running')
 file_1 = open('/home/miguel/state.txt', 'r')
