@@ -6,7 +6,13 @@ workdir = '/home/miguel/Documents/tese/ViscoPlastic-ML/2 Dimensions/dataset/grap
 trials = ['xx', 'yy', 'xy']
 # Ploting style
 style = 'ggplot'
-Emaxs = [0.025, 0.036, 0.05]
+
+if len(sys.argv) == 2:
+    Emaxs = [float(sys.argv[1])]
+elif len(sys.argv) == 3:
+    Emaxs = [float(sys.argv[1]), float(sys.argv[2])]
+elif len(sys.argv) == 4:
+    Emaxs = [float(sys.argv[1]), float(sys.argv[2]), float(sys.argv[3])]
 
 for Emax in Emaxs:
     for trial in trials:

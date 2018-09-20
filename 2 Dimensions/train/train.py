@@ -70,7 +70,7 @@ estimator = MLPRegressor(solver='lbfgs', hidden_layer_sizes=(20, 12, 20),
 estimator.fit(X_train, y_train)
 
 # Save hyperparameters and network performance
-size = X.size / 11 / 3      # Size of training set for each trial
+size = (X.size / 11 / 3) / 3      # Size of training set for each trial
 
 params = {'activation': estimator.activation, 'solver': estimator.solver,
           'learning_rate': estimator.learning_rate,

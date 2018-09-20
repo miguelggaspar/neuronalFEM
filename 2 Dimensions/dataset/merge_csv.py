@@ -1,5 +1,5 @@
 import pandas as pd
-
+import sys
 
 # Function to merge csv files
 def merge_csv_files(files, workdir):
@@ -13,10 +13,21 @@ def merge_csv_files(files, workdir):
 # Driver program
 if __name__ == "__main__":
     print ('Merge csv files for training')
-    files = ['data_0.05_xx', 'data_0.05_yy', 'data_0.05_xy',
-             'data_0.025_xx', 'data_0.025_yy', 'data_0.025_xy',
-             'data_0.036_xx', 'data_0.036_yy', 'data_0.036_xy']
-             
+
+    if len(sys.argv) == 2:
+        files = ['data_' + sys.argv[1] + '_xx', 'data_' + sys.argv[1] + '_yy',
+                 'data_' + sys.argv[1] + '_xy']
+    elif len(sys.argv) == 3:
+        files = ['data_' + sys.argv[1] + '_xx', 'data_' + sys.argv[1] + '_yy',
+                 'data_' + sys.argv[1] + '_xy', 'data_' + sys.argv[2] + '_xx',
+                 'data_' + sys.argv[2] + '_yy', 'data_' + sys.argv[2] + '_xy']
+    elif len(sys.argv) == 4:
+        files = ['data_' + sys.argv[1] + '_xx', 'data_' + sys.argv[1] + '_yy',
+                 'data_' + sys.argv[1] + '_xy', 'data_' + sys.argv[2] + '_xx',
+                 'data_' + sys.argv[2] + '_yy', 'data_' + sys.argv[2] + '_xy',
+                 'data_' + sys.argv[3] + '_xx', 'data_' + sys.argv[3] + '_yy',
+                 'data_' + sys.argv[3] + '_xy']
+
     workdir = '/home/miguel/Documents/tese/ViscoPlastic-ML/2 Dimensions/dataset/results/'
     merge_csv_files(files, workdir)
     print ('csv file ready for training')

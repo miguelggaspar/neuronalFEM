@@ -1,14 +1,20 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 from compare_utils import save_graphs, get_score
-
+import sys
 
 print ('Creating and saving graphs for the tested model')
 workdir = '/home/miguel/Documents/tese/ViscoPlastic-ML/2 Dimensions/testmodel/'
 workd_gra = '/home/miguel/Documents/tese/ViscoPlastic-ML/2 Dimensions/testmodel/graphs/'
 trials = ['xx', 'yy', 'xy']
 style = 'ggplot'
-Emaxs = [0.025, 0.036, 0.05]
+
+if len(sys.argv) == 2:
+    Emaxs = [float(sys.argv[1])]
+elif len(sys.argv) == 3:
+    Emaxs = [float(sys.argv[1]), float(sys.argv[2])]
+elif len(sys.argv) == 4:
+    Emaxs = [float(sys.argv[1]), float(sys.argv[2]), float(sys.argv[3])]
 
 for Emax in Emaxs:
     for trial in trials:

@@ -1,19 +1,26 @@
 import numpy as np
 import pandas as pd
 from functions import viscoPlastic2D
+import sys
 
 workdir = '/home/miguel/Documents/tese/ViscoPlastic-ML/2 Dimensions/dataset/results/'
 # number of time points
-# n = 2300
-n = 5000
+n = int(sys.argv[1])
 # Time points
-t = np.linspace(0, 100, n)
+t = np.linspace(0, int(sys.argv[2]), n)
 # initial conditions - inelastic strain  / X / R
 z0 = [0, 0, 0, 0, 0, 0, 50.0, 0]
 print ('Chaboche Constitutive Viscoplasticity Model')
 
 trials = ['xx', 'yy', 'xy']
-Emaxs = [0.025, 0.036, 0.05]
+# Emaxs = [0.025, 0.036, 0.05]
+if len(sys.argv) == 4:
+    Emaxs = [float(sys.argv[3])]
+elif len(sys.argv) == 5:
+    Emaxs = [float(sys.argv[3]), float(sys.argv[4])]
+elif len(sys.argv) == 6:
+    Emaxs = [float(sys.argv[3]), float(sys.argv[4]), float(sys.argv[5])]
+
 
 for Emax in Emaxs:
     for trial in trials:

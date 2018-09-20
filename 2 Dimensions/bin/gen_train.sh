@@ -24,15 +24,3 @@ python ../dataset/merge_csv.py $3 $4 $5
 ################################################################
 # Train the mlp regressor
 python3 ../train/train.py
-
-
-################################################################
-####                  TEST MODEL                            ####
-################################################################
-# Delete previous tests
-rm -rf ../testmodel/results/*.csv
-rm -rf ../testmodel/graphs/xx/*.png ../testmodel/graphs/yy/*.png ../testmodel/graphs/xy/*.png
-# Test model
-python3 ../testmodel/test_model.py $1 $2 $3 $4 $5
-# Making graphs for debugging
-python3 ../testmodel/compare.py $3 $4 $5
