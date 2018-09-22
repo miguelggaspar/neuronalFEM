@@ -27,6 +27,12 @@ elif len(sys.argv) == 5:
     Emaxs = [float(sys.argv[3]), float(sys.argv[4])]
 elif len(sys.argv) == 6:
     Emaxs = [float(sys.argv[3]), float(sys.argv[4]), float(sys.argv[5])]
+elif len(sys.argv) == 7:
+    Emaxs = [float(sys.argv[3]), float(sys.argv[4]), float(sys.argv[5]),
+             float(sys.argv[6])]
+elif len(sys.argv) == 8:
+    Emaxs = [float(sys.argv[3]), float(sys.argv[4]), float(sys.argv[5]),
+             float(sys.argv[6]), float(sys.argv[7])]
 
 for Emax in Emaxs:
     for trial in trials:

@@ -1,6 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-from compare_utils import save_graphs, get_score
+from compare_utils import save_graphs, get_score, save_scores
 import sys
 
 print ('Creating and saving graphs for the tested model')
@@ -15,6 +15,12 @@ elif len(sys.argv) == 3:
     Emaxs = [float(sys.argv[1]), float(sys.argv[2])]
 elif len(sys.argv) == 4:
     Emaxs = [float(sys.argv[1]), float(sys.argv[2]), float(sys.argv[3])]
+elif len(sys.argv) == 5:
+    Emaxs = [float(sys.argv[1]), float(sys.argv[2]), float(sys.argv[3]),
+             float(sys.argv[4])]
+elif len(sys.argv) == 6:
+    Emaxs = [float(sys.argv[1]), float(sys.argv[2]), float(sys.argv[3]),
+             float(sys.argv[4]), float(sys.argv[5])]
 
 for Emax in Emaxs:
     for trial in trials:
@@ -98,9 +104,31 @@ for Emax in Emaxs:
         labels = ['Time [s]', 'Strain [%]', trial]
         save_graphs(legend, 2, data, labels, workd_gra + trial + '/comp_'
                     + str(Emax) + '_p_dp_' + trial + '_2d', 0)
+
+        # Plot and save graphs of Plastic Strain and it's rate
+        legend = [r'Predicted $\dot p$', r'Real $\dot p$',
+                  r'Predicted $p$', r'Real $p$' ]
+        data = [df['Time'], pred['dpStrain'], df['dpStrain'], pred['pStrain'], df['pStrain']]
+        labels = ['Time [s]', 'Strain [%]', trial]
+        save_graphs(legend, 2, data, labels, workd_gra + trial + '/comp_'
+                    + str(Emax) + '_p_dp_' + trial + '_2d', 0)
+
+        # Plot and save graphs reverse cyclic loading
+        legend = ['Predicted', 'Real',
+                  'Predicted', 'Real',
+                  'Predicted', 'Real']
+        data = [df['ET11'], pred['S11'], df['S11'], df['ET22'], pred['S22'], df['S22'],
+                df['ET12'], pred['S12'], df['S12']]
+        labels = ['Strain [%]', 'Stress [MPa]']
+        save_graphs(legend, 3, data, labels, workd_gra + trial + '/comp_'
+                   + str(Emax) + '_ET_S_' + trial + '_2d', 2)
+
         # Close all figures
         plt.close('all')
 
         workdir_ann = '../train/model/'
-        get_score(workdir_ann, df)
+        score = get_score(workdir_ann, df)
+        save_scores(trial, score, Emax, pd, workdir)
+
+
 print ('Done creating graphs')

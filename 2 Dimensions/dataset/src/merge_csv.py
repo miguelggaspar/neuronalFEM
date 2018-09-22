@@ -27,6 +27,23 @@ if __name__ == "__main__":
                  'data_' + sys.argv[2] + '_yy', 'data_' + sys.argv[2] + '_xy',
                  'data_' + sys.argv[3] + '_xx', 'data_' + sys.argv[3] + '_yy',
                  'data_' + sys.argv[3] + '_xy']
+    elif len(sys.argv) == 5:
+        files = ['data_' + sys.argv[1] + '_xx', 'data_' + sys.argv[1] + '_yy',
+                 'data_' + sys.argv[1] + '_xy', 'data_' + sys.argv[2] + '_xx',
+                 'data_' + sys.argv[2] + '_yy', 'data_' + sys.argv[2] + '_xy',
+                 'data_' + sys.argv[3] + '_xx', 'data_' + sys.argv[3] + '_yy',
+                 'data_' + sys.argv[3] + '_xy', 'data_' + sys.argv[4] + '_xx',
+                 'data_' + sys.argv[4] + '_yy', 'data_' + sys.argv[4] + '_xy']
+    elif len(sys.argv) == 6:
+        files = ['data_' + sys.argv[1] + '_xx', 'data_' + sys.argv[1] + '_yy',
+                 'data_' + sys.argv[1] + '_xy', 'data_' + sys.argv[2] + '_xx',
+                 'data_' + sys.argv[2] + '_yy', 'data_' + sys.argv[2] + '_xy',
+                 'data_' + sys.argv[3] + '_xx', 'data_' + sys.argv[3] + '_yy',
+                 'data_' + sys.argv[3] + '_xy', 'data_' + sys.argv[4] + '_xx',
+                 'data_' + sys.argv[4] + '_yy', 'data_' + sys.argv[4] + '_xy',
+                 'data_' + sys.argv[5] + '_xx', 'data_' + sys.argv[5] + '_yy',
+                 'data_' + sys.argv[5] + '_xy']
+
 
     workdir = '/home/miguel/Documents/tese/ViscoPlastic-ML/2 Dimensions/dataset/results/'
     merge_csv_files(files, workdir)

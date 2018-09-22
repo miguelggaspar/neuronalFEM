@@ -13,20 +13,20 @@ def save_graphs(legends, n_hand, data, labels, name, condition):
     fig.text(0.02, 0.5, labels[1], va='center', rotation='vertical')
     for n in range(n_hand):
         plt.subplot(n_hand, 1, n+1)
-        if condition == 1:
-            plt.plot(data[0], data[n+1], label=legends[n], color=color[n])
-            plt.grid()
-            # plt.legend(legends[n:], loc=0)
-            # plt.legend(legends[n:])
-            plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
-        else:
+        if condition == 0:
             plt.plot(data[0], data[2*n+1], label=legends[2*n], color=color[2*n])
             plt.plot(data[0], data[2*n+2], label=legends[2*n+1], color=color[2*n+1])
             plt.grid()
-            # plt.legend(legends[2*n:2*n+2], loc=0)
-            # plt.legend(legends[2*n:2*n+2])
             plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
-
+        elif condition == 1:
+            plt.plot(data[0], data[n+1], label=legends[n], color=color[n])
+            plt.grid()
+            plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
+        elif condition == 2:
+            plt.plot(data[3*n], data[3*n+1], label=legends[2*n], color=color[2*n])
+            plt.plot(data[3*n], data[3*n+2], label=legends[2*n+1], color=color[2*n+1])
+            plt.grid()
+            plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
         plt.savefig(name + '.png', bbox_inches='tight')
 
 
@@ -47,4 +47,10 @@ def get_score(workdir_ann, df):
 
     X = scaler_x.transform(X)
     y = scaler_y.transform(y)
-    print (ann.score(X, y))
+    return (ann.score(X, y))
+
+
+def save_scores(trial, score, Emax, pd, workdir):
+    df = pd.DataFrame({'Trial': [trial], 'Emax': [Emax], 'Score': [score]})
+    df.to_csv(workdir + "four_Emax_2000.csv",
+               float_format='%.5f', index=False, mode='a', header=False)

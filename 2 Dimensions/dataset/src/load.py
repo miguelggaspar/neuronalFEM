@@ -13,6 +13,12 @@ elif len(sys.argv) == 3:
     Emaxs = [float(sys.argv[1]), float(sys.argv[2])]
 elif len(sys.argv) == 4:
     Emaxs = [float(sys.argv[1]), float(sys.argv[2]), float(sys.argv[3])]
+elif len(sys.argv) == 5:
+    Emaxs = [float(sys.argv[1]), float(sys.argv[2]), float(sys.argv[3]),
+             float(sys.argv[4])]
+elif len(sys.argv) == 6:
+    Emaxs = [float(sys.argv[1]), float(sys.argv[2]), float(sys.argv[3]),
+             float(sys.argv[4]), float(sys.argv[5])]
 
 for Emax in Emaxs:
     for trial in trials:
@@ -108,7 +114,7 @@ for Emax in Emaxs:
         labels = ['Time [s]', 'Strain [%]']
         save_graph(legend, 2, data, labels, workdir + trial + '/' + str(Emax) + '_p_dp_2d', 0)
 
-        # Plot and save graphs of Plastic Strain and it's rate
+        # Plot and save graphs for reverse cyclcic loading
         legend = ['xx', 'yy', 'xy']
         data = [df['ET11'], df['S11'], df['ET22'], df['S22'], df['ET12'],  df['S12']]
         labels = ['Strain [%]', 'Stress [MPa]']
