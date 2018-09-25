@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 from sklearn.externals import joblib
-
+import numpy as np
 
 # Plot Total, Elastic and Inelastic Strains
 def save_graphs(legends, n_hand, data, labels, name, condition):
@@ -26,7 +26,9 @@ def save_graphs(legends, n_hand, data, labels, name, condition):
             plt.plot(data[3*n], data[3*n+1], label=legends[2*n], color=color[2*n])
             plt.plot(data[3*n], data[3*n+2], label=legends[2*n+1], color=color[2*n+1])
             plt.grid()
-            plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
+            # plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
+            plt.legend(loc=2)
+        plt.title(labels[2])
         plt.savefig(name + '.png', bbox_inches='tight')
 
 
@@ -52,5 +54,10 @@ def get_score(workdir_ann, df):
 
 def save_scores(trial, score, Emax, pd, workdir):
     df = pd.DataFrame({'Trial': [trial], 'Emax': [Emax], 'Score': [score]})
-    df.to_csv(workdir + "four_Emax_2000.csv",
+    df.to_csv(workdir + "for_writing.csv",
                float_format='%.5f', index=False, mode='a', header=False)
+
+
+def get_index(value, start, stop, num_el):
+    index = int(np.floor((value-start)*(num_el-1)/(stop-start)+1))
+    return index

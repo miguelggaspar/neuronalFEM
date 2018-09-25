@@ -7,18 +7,11 @@ trials = ['xx', 'yy', 'xy']
 # Ploting style
 style = 'ggplot'
 
-if len(sys.argv) == 2:
-    Emaxs = [float(sys.argv[1])]
-elif len(sys.argv) == 3:
-    Emaxs = [float(sys.argv[1]), float(sys.argv[2])]
-elif len(sys.argv) == 4:
-    Emaxs = [float(sys.argv[1]), float(sys.argv[2]), float(sys.argv[3])]
-elif len(sys.argv) == 5:
-    Emaxs = [float(sys.argv[1]), float(sys.argv[2]), float(sys.argv[3]),
-             float(sys.argv[4])]
-elif len(sys.argv) == 6:
-    Emaxs = [float(sys.argv[1]), float(sys.argv[2]), float(sys.argv[3]),
-             float(sys.argv[4]), float(sys.argv[5])]
+Emaxs = []
+for k in range(len(sys.argv)):
+    if (len(sys.argv) - k) == 1:
+        break
+    Emaxs.append(float(sys.argv[k+1]))
 
 for Emax in Emaxs:
     for trial in trials:

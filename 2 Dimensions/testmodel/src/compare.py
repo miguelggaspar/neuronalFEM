@@ -9,18 +9,12 @@ workd_gra = '/home/miguel/Documents/tese/ViscoPlastic-ML/2 Dimensions/testmodel/
 trials = ['xx', 'yy', 'xy']
 style = 'ggplot'
 
-if len(sys.argv) == 2:
-    Emaxs = [float(sys.argv[1])]
-elif len(sys.argv) == 3:
-    Emaxs = [float(sys.argv[1]), float(sys.argv[2])]
-elif len(sys.argv) == 4:
-    Emaxs = [float(sys.argv[1]), float(sys.argv[2]), float(sys.argv[3])]
-elif len(sys.argv) == 5:
-    Emaxs = [float(sys.argv[1]), float(sys.argv[2]), float(sys.argv[3]),
-             float(sys.argv[4])]
-elif len(sys.argv) == 6:
-    Emaxs = [float(sys.argv[1]), float(sys.argv[2]), float(sys.argv[3]),
-             float(sys.argv[4]), float(sys.argv[5])]
+
+Emaxs = []
+for k in range(len(sys.argv)):
+    if (len(sys.argv) - k) == 1:
+        break
+    Emaxs.append(float(sys.argv[k+1]))
 
 for Emax in Emaxs:
     for trial in trials:
@@ -117,10 +111,18 @@ for Emax in Emaxs:
         legend = ['Predicted', 'Real',
                   'Predicted', 'Real',
                   'Predicted', 'Real']
-        data = [df['ET11'], pred['S11'], df['S11'], df['ET22'], pred['S22'], df['S22'],
-                df['ET12'], pred['S12'], df['S12']]
+
+        if trial == 'xx':
+            data = [df['ET11'], pred['S11'], df['S11']]
+        elif trial == 'yy':
+            data = [df['ET22'], pred['S22'], df['S22']]
+        elif trial == 'xy':
+            data = [df['ET12'], pred['S12'], df['S12']]
+        # data = [df['ET11'], pred['S11'], df['S11'], df['ET22'], pred['S22'], df['S22'],
+        #         df['ET12'], pred['S12'], df['S12']]
+
         labels = ['Strain [%]', 'Stress [MPa]']
-        save_graphs(legend, 3, data, labels, workd_gra + trial + '/comp_'
+        save_graphs(legend, 1, data, labels, workd_gra + trial + '/comp_'
                    + str(Emax) + '_ET_S_' + trial + '_2d', 2)
 
         # Close all figures

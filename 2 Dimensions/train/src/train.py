@@ -6,7 +6,7 @@ import pandas as pd
 from matplotlib import pyplot as plt
 import pickle
 import json
-
+import sys
 
 def savePerformance(params, X_train, y_train, filename):
     # file = open(filename, 'a+')
@@ -59,8 +59,8 @@ y = scaler_y.transform(y)
 #                          activation='relu', learning_rate='adaptive',
 #                          alpha=1, random_state=1)
 #
-estimator = MLPRegressor(solver='lbfgs', hidden_layer_sizes=(20, 12, 20),
-                         activation='tanh', learning_rate='constant',
+estimator = MLPRegressor(solver='adam', hidden_layer_sizes=(30, 20, 30),
+                         activation='relu', learning_rate='constant',
                          alpha=1, random_state=1)
 
 # estimator = MLPRegressor(solver='sgd', hidden_layer_sizes=(20, 20, 20),
@@ -70,14 +70,15 @@ estimator = MLPRegressor(solver='lbfgs', hidden_layer_sizes=(20, 12, 20),
 estimator.fit(X_train, y_train)
 
 # Save hyperparameters and network performance
-size = (X.size / 11 / 3) / 3      # Size of training set for each trial
+# size = (X.size / 11 / 3) / 3      # Size of training set for each trial
+size = sys.argv[1]      # Size of training set for each trial
 
 params = {'activation': estimator.activation, 'solver': estimator.solver,
           'learning_rate': estimator.learning_rate,
           'hidden_layer_sizes': estimator.hidden_layer_sizes,
           'alpha': estimator.alpha,
           'score': estimator.score(X_train, y_train),
-          'loss': estimator.loss_, 'size': size}
+          'loss': estimator.loss_, 'size': sys.argv[1]}
 
 dfs = pd.DataFrame({'activation': estimator.activation, 'solver': estimator.solver,
                     'learning_rate': estimator.learning_rate,
