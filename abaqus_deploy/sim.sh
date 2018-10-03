@@ -6,6 +6,8 @@ cp src/statev_initial_cond.txt ~/statev.txt
 cp src/stat_initial_cond.txt ~/state.txt
 cp src/deriv_initial_cond.txt ~/derivatives.txt
 
+# Delete lock file
+rm *.lck 
 # Run elas_axidisp job with elastic user defined subroutine
 /usr/simulia/abaqus/Commands/abaqus job=$1 user=src/$2 interactive
 

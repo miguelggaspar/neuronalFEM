@@ -28,7 +28,7 @@ def save_graphs(legends, n_hand, data, labels, name, condition):
             plt.grid()
             # plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
             plt.legend(loc=2)
-        plt.title(labels[2])
+        fig.suptitle(labels[2], fontsize=13, x=0.5, y=0.93)
         plt.savefig(name + '.png', bbox_inches='tight')
 
 
@@ -54,8 +54,9 @@ def get_score(workdir_ann, df):
 
 def save_scores(trial, score, Emax, pd, workdir):
     df = pd.DataFrame({'Trial': [trial], 'Emax': [Emax], 'Score': [score]})
+    df = pd.DataFrame({'Score': [score]})
     df.to_csv(workdir + "for_writing.csv",
-               float_format='%.5f', index=False, mode='a', header=False)
+               float_format='%.2f', index=False, mode='a', header=False)
 
 
 def get_index(value, start, stop, num_el):

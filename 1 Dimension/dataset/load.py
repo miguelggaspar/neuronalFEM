@@ -2,13 +2,13 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 df = pd.read_csv("data.csv")
-style = 'ggplot'
+# style = 'ggplot'
 
 
 # Save figure to png file
 def save_graph(legends, n_hand, data, labels, name, condition):
     fig = plt.figure(figsize=(8, 5), dpi=80)
-    plt.style.use(style)
+    # plt.style.use(style)
     # plt.ylim(-0.075, 0.075)                   # set the xlim to xmin, xmax
     color = ['b', 'r', 'k', 'g', 'y', 'brown']
     fig.text(0.51, 0.035, labels[0], ha='center')
@@ -16,9 +16,15 @@ def save_graph(legends, n_hand, data, labels, name, condition):
     for n in range(n_hand):
         if condition == 1:
             plt.plot(data[2*n], data[2*n+1], label=legend[n], color=color[n])
-        else:
+            plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
+        elif condition == 0:
             plt.plot(data[0], data[n+1], label=legend[n], color=color[n])
-        plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
+            plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
+        elif condition == 2:
+            plt.plot(data[0], data[n+1], label=legend[n], color=color[n])
+            plt.legend(loc=1)
+            plt.title(labels[2])
+    plt.grid()
     plt.savefig(name, bbox_inches='tight')
 
 
@@ -59,3 +65,9 @@ legend = ['Reverse cyclic loading']
 data = [df['TStrain'], df['Stress']]
 labels = ['Total Strain [%]', 'Total Stress [MPa]']
 save_graph(legend, 1, data, labels, 'graphs/stress_strain_1d', 1)
+
+# Plot and save graphs of Total strain
+legend = [r'Total Strain ($\varepsilon(t)$)']
+data = [df['Time'], df['TStrain']]
+labels = ['Time [s]', 'Strain', r'Total Strain $(t_c = 20 s, \varepsilon_{max} = 0.036)$']
+save_graph(legend, 1, data, labels, 'graphs/ET_1d', 2)

@@ -10,7 +10,7 @@ from sklearn.model_selection import ShuffleSplit
 # For further use, use this line to import trained model
 # gs = joblib.load('gs.pkl')
 
-df = pd.read_csv("../dataset/results/data.csv")
+df = pd.read_csv("../../dataset/results/data.csv")
 
 # Choose features
 X = df.drop(["ET11", "ET22", "ET12", "dEi11", "dEi22", "dEi12", "Ee11", "Ee22",
@@ -115,7 +115,7 @@ def plot_learning_curve(estimator, title, X, y, ylim=None, cv=None,
 #                          activation='tanh', learning_rate='constant',
 #                          alpha=1, random_state=1)
 #
-estimator = MLPRegressor(solver='sgd', hidden_layer_sizes=(20, 20, 20),
+estimator = MLPRegressor(solver='adam', hidden_layer_sizes=(30, 20, 30),
                          activation='relu', learning_rate='constant',
                          alpha=1, random_state=1)
 title = "Learning Curve"
@@ -123,4 +123,4 @@ title = "Learning Curve"
 # score curves, each time with 20% data randomly selected as a validation set.
 cv = ShuffleSplit(n_splits=20, test_size=0.2, random_state=42)
 plot_learning_curve(estimator, title, X, y, cv=cv, ylim=(0.0, 1.01), n_jobs=4)
-plt.savefig('graphs/learning_curve_2d', bbox_inches='tight')
+plt.savefig('learning_curve_2d', bbox_inches='tight')

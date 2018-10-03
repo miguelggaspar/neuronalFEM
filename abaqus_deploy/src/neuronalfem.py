@@ -61,9 +61,9 @@ dp = output[0][7]
 # dXdt = np.array([[output[0][3]], [output[0][4]], [0]])
 # dpdt = output[0][5]
 
-file = open('/home/miguel/derivatives.txt', 'w')
-file_hist_state = open(workdir + 'state.txt', 'a+')
-file_hist_deriv = open(workdir + 'derivatives.txt', 'a+')
+file = open('/home/miguel/derivatives.txt', 'wb')
+file_hist_state = open(workdir + 'state.txt', 'ab+')
+file_hist_deriv = open(workdir + 'derivatives.txt', 'ab+')
 
 # file = open('/home/miguel/derivatives.txt', 'a')
 derivatives = np.arange(8, dtype=float)     # Initialize derivatives vector

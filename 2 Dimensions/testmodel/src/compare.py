@@ -28,7 +28,7 @@ for Emax in Emaxs:
                   r'Predicted $\dot \chi_{xy}$', r'Real $\dot \chi_{xy}$']
         data = [df['Time'], pred['dX11'], df['dX11'],  pred['dX22'],
                 df['dX22'], pred['dX12'], df['dX12']]
-        labels = ['Time [s]', r'Stress rate [$\frac{MPa}{s}$]', trial]
+        labels = ['Time [s]', r'Stress rate [$\frac{MPa}{s}$]', 'Trial ' + trial + r' with $\pm$' + str(Emax)]
         save_graphs(legend, 3, data, labels, workd_gra + trial + '/comp_'
                     + str(Emax) +'_dX_' + trial + '_2d', 0)
 
@@ -38,7 +38,7 @@ for Emax in Emaxs:
                   r'Predicted $\chi_{xy}$', r'Real $\chi_{xy}$']
         data = [df['Time'], pred['X11'], df['X11'], pred['X22'], df['X22'],
                 pred['X12'], df['X12']]
-        labels = ['Time [s]', 'Stress [MPa]', trial]
+        labels = ['Time [s]', 'Stress [MPa]', 'Trial ' + trial + r' with $\pm$' + str(Emax)]
         save_graphs(legend, 3, data, labels, workd_gra + trial + '/comp_'
                     + str(Emax) +'_X_' + trial + '_2d', 0)
 
@@ -48,14 +48,14 @@ for Emax in Emaxs:
                   r'Predicted $\sigma_{xy}$', r'Real $\sigma_{xy}$']
         data = [df['Time'], pred['S11'], df['S11'], pred['S22'], df['S22'],
                 pred['S12'], df['S12']]
-        labels = ['Time [s]', 'Stress [MPa]', trial]
+        labels = ['Time [s]', 'Stress [MPa]', 'Trial ' + trial + r' with $\pm$' + str(Emax)]
         save_graphs(legend, 3, data, labels, workd_gra + trial + '/comp_'
                     + str(Emax) + '_S_' + trial + '_2d', 0)
 
         # Plot and save graphs of Drag stress and it's rate
         legend = [r'Predicted $\dot R$', r'Real $\dot R$', r'Predicted R', r'Real R']
         data = [df['Time'], pred['dR'], df['dR'], pred['R'], df['R']]
-        labels = ['Time [s]', 'Stress [MPa]', trial]
+        labels = ['Time [s]', 'Stress [MPa]', 'Trial ' + trial + r' with $\pm$' + str(Emax)]
         save_graphs(legend, 2, data, labels, workd_gra + trial + '/comp_'
                     + str(Emax) + '_R_dR_' + trial + '_2d', 0)
 
@@ -64,7 +64,7 @@ for Emax in Emaxs:
                   r'$\varepsilon^t_{y}$',
                   r'$\varepsilon^t_{xy}$']
         data = [df['Time'], df['ET11'], df['ET22'], df['ET12']]
-        labels = ['Time [s]', 'Strain [%]', trial]
+        labels = ['Time [s]', 'Strain', 'Trial ' + trial + r' with $\pm$' + str(Emax)]
         save_graphs(legend, 3, data, labels, workd_gra + trial + '/comp_'
                     + str(Emax) + '_ET_' + trial + '_2d', 1)
 
@@ -74,7 +74,7 @@ for Emax in Emaxs:
                   r'Predicted $\varepsilon^{in}_{xy}$', r'Real $\varepsilon^{in}_{xy}$']
         data = [df['Time'], pred['Ei11'], df['Ei11'], pred['Ei22'], df['Ei22'],
                 pred['Ei12'], df['Ei12']]
-        labels = ['Time [s]', 'Strain [%]', trial]
+        labels = ['Time [s]', 'Strain', 'Trial ' + trial + r' with $\pm$' + str(Emax)]
         save_graphs(legend, 3, data, labels, workd_gra + trial + '/comp_'
                     + str(Emax) + '_Ei_' + trial + '_2d', 0)
 
@@ -87,7 +87,7 @@ for Emax in Emaxs:
                   r'Real $\dot \varepsilon^{in}_{xy}$']
         data = [df['Time'], pred['dEi11'], df['dEi11'], pred['dEi22'], df['dEi22'],
                 pred['dEi12'], df['dEi12']]
-        labels = ['Time [s]', 'Strain [%]', trial]
+        labels = ['Time [s]', 'Strain', 'Trial ' + trial + r' with $\pm$' + str(Emax)]
         save_graphs(legend, 3, data, labels, workd_gra + trial + '/comp_'
                     + str(Emax) + '_dEi_' + trial + '_2d', 0)
 
@@ -95,7 +95,7 @@ for Emax in Emaxs:
         legend = [r'Predicted $\dot p$', r'Real $\dot p$',
                   r'Predicted $p$', r'Real $p$' ]
         data = [df['Time'], pred['dpStrain'], df['dpStrain'], pred['pStrain'], df['pStrain']]
-        labels = ['Time [s]', 'Strain [%]', trial]
+        labels = ['Time [s]', 'Strain', 'Trial ' + trial + r' with $\pm$' + str(Emax)]
         save_graphs(legend, 2, data, labels, workd_gra + trial + '/comp_'
                     + str(Emax) + '_p_dp_' + trial + '_2d', 0)
 
@@ -103,7 +103,7 @@ for Emax in Emaxs:
         legend = [r'Predicted $\dot p$', r'Real $\dot p$',
                   r'Predicted $p$', r'Real $p$' ]
         data = [df['Time'], pred['dpStrain'], df['dpStrain'], pred['pStrain'], df['pStrain']]
-        labels = ['Time [s]', 'Strain [%]', trial]
+        labels = ['Time [s]', 'Strain', 'Trial ' + trial + r' with $\pm$' + str(Emax)]
         save_graphs(legend, 2, data, labels, workd_gra + trial + '/comp_'
                     + str(Emax) + '_p_dp_' + trial + '_2d', 0)
 
@@ -121,7 +121,7 @@ for Emax in Emaxs:
         # data = [df['ET11'], pred['S11'], df['S11'], df['ET22'], pred['S22'], df['S22'],
         #         df['ET12'], pred['S12'], df['S12']]
 
-        labels = ['Strain [%]', 'Stress [MPa]']
+        labels = ['Strain', 'Stress [MPa]', 'Trial ' + trial + r' with $\pm$' + str(Emax)]
         save_graphs(legend, 1, data, labels, workd_gra + trial + '/comp_'
                    + str(Emax) + '_ET_S_' + trial + '_2d', 2)
 

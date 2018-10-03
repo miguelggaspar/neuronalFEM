@@ -61,7 +61,7 @@ y = scaler_y.transform(y)
 #
 estimator = MLPRegressor(solver='adam', hidden_layer_sizes=(30, 20, 30),
                          activation='relu', learning_rate='constant',
-                         alpha=1, random_state=1)
+                         alpha=1, random_state=1, verbose=True)
 
 # estimator = MLPRegressor(solver='sgd', hidden_layer_sizes=(20, 20, 20),
 #                          activation='relu', learning_rate='constant',
@@ -99,6 +99,8 @@ dfs.to_csv(workdir + "training_results.csv",
            float_format='%.5f', index=False, mode='a', header=False)
 
 savePerformance(params, X_train, y_train, 'teste.txt')
+print (estimator.score(X_train, y_train))
+print (estimator.loss_)
 # Plot and save loss curve
 # plt.plot(estimator.loss_curve_)
 # plt.savefig('graphs/loss_curve_2d', bbox_inches='tight')

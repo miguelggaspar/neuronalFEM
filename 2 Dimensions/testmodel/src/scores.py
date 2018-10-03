@@ -25,7 +25,7 @@ for Emax in Emaxs:
         plt.close('all')
 
         score = get_score(workdir_ann, df)
-        save_scores(trial, score, Emax, pd, workdir)
+        save_scores(trial, score*100, Emax, pd, workdir)
 
 
 print ('Done creating graphs')

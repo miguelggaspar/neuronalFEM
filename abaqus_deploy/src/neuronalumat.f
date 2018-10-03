@@ -73,29 +73,29 @@ C
 C
 C     LOOP TO GET CONVERGENCE
 C
-      DO K1 = 1, 5
-        open(unit=17, file='/home/miguel/derivatives.txt')
-        read (17,*) dEi11, dEi22, dEi12, dR, dX11, dX22, dX12, dp
-        CLOSE(17)
-        S11_temp = S11 + DDSDDE(1,1)*(DSTRAN(1)-dEi11)+
+C      DO K1 = 1, 1
+      open(unit=17, file='/home/miguel/derivatives.txt')
+      read (17,*) dEi11, dEi22, dEi12, dR, dX11, dX22, dX12, dp
+      CLOSE(17)
+      S11_temp = S11 + DDSDDE(1,1)*(DSTRAN(1)-dEi11)+
      +            DDSDDE(1,2)*(DSTRAN(2)-dEi22)
-        S22_temp = S22 + DDSDDE(2,1)*(DSTRAN(1)-dEi11)+
+      S22_temp = S22 + DDSDDE(2,1)*(DSTRAN(1)-dEi11)+
      +            DDSDDE(2,2)*(DSTRAN(2)-dEi22)
-        S12_temp = S12 + DDSDDE(3,3)*(DSTRAN(3)-dEi12)
+      S12_temp = S12 + DDSDDE(3,3)*(DSTRAN(3)-dEi12)
 C
-        Ei11 = Ei11 + dEi11*DTIME(1)
-        Ei22 = Ei22 + dEi22*DTIME(1)
-        Ei12 = Ei12 + dEi12*DTIME(1)
-        X11 = X11 + dX11*DTIME(1)
-        X22 = X22 + dX22*DTIME(1)
-        X12 = X12 + dX12*DTIME(1)
-        R = R + dR*DTIME(1)
-        p = p + dp*DTIME(1)
+      Ei11 = Ei11 + dEi11*DTIME(1)
+      Ei22 = Ei22 + dEi22*DTIME(1)
+      Ei12 = Ei12 + dEi12*DTIME(1)
+      X11 = X11 + dX11*DTIME(1)
+      X22 = X22 + dX22*DTIME(1)
+      X12 = X12 + dX12*DTIME(1)
+      R = R + dR*DTIME(1)
+      p = p + dp*DTIME(1)
 C
-        a = get_derivatives(Ei11, Ei22, Ei12, R, S11_temp, S22_temp,
+      a = get_derivatives(Ei11, Ei22, Ei12, R, S11_temp, S22_temp,
      + S12_temp, X11, X22, X12, p, DSTRAN(1), DSTRAN(2), DSTRAN(3),
      + KINC, KSTEP, NOEL, NPT, KSPT)
-      END DO
+C      END DO
 C
 C     UPDATE STRESS
 C
