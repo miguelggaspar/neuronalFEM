@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- COPYRIGHT DASSAULT SYSTEMES 2009 -->
-<manifest>
-    <focusFile fileBinary="plane_stress_xx.1.SMAFocus"/>
-    <bulkFile bulkid="0" fileBinary="plane_stress_xx.1.SMABulk"/>
-</manifest>

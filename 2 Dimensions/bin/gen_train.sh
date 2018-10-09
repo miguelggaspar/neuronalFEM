@@ -25,4 +25,4 @@ python ../dataset/src/merge_csv.py $3 $4 $5 $6 $7 $8 $9 $10 $11 $12 $13 $14 $15 
 ####                  TRAINING                              ####
 ################################################################
 # Train the mlp regressor
-python3 ../train/src/train.py $1
+python3.6 ../train/src/train.py $1
