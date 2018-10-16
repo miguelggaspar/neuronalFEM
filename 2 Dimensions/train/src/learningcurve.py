@@ -111,13 +111,13 @@ def plot_learning_curve(estimator, title, X, y, ylim=None, cv=None,
     return plt
 
 
-# estimator = MLPRegressor(solver='lbfgs', hidden_layer_sizes=(20, 12, 20),
-#                          activation='tanh', learning_rate='constant',
-#                          alpha=1, random_state=1)
-#
-estimator = MLPRegressor(solver='adam', hidden_layer_sizes=(30, 20, 30),
-                         activation='relu', learning_rate='constant',
+estimator = MLPRegressor(solver='lbfgs', hidden_layer_sizes=(20, 12, 20),
+                         activation='tanh', learning_rate='constant',
                          alpha=1, random_state=1)
+
+# estimator = MLPRegressor(solver='adam', hidden_layer_sizes=(30, 20, 30),
+#                          activation='relu', learning_rate='constant',
+#                          alpha=1, random_state=1)
 title = "Learning Curve"
 # Cross validation with 100 iterations to get smoother mean test and train
 # score curves, each time with 20% data randomly selected as a validation set.

@@ -10,4 +10,4 @@ echo "seventh argument (Emax value): $7"
 ####                  TRAINING                              ####
 ################################################################
 # Train the mlp regressor
-python3.6 ../train/src/train.py $1
+python3 ../train/src/train.py $1

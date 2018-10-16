@@ -29,6 +29,7 @@ class viscoPlastic2D:
         self.dp = np.zeros(nt)
         self.dR = np.zeros(nt)
         self.stress = np.zeros((nt, 3))
+        self.stress_plas = np.zeros((nt, 3))
         self.crit = np.zeros(nt)
         self.J = np.zeros(nt)
         self.trial = trial         # x-traction(x),y-traction(y),3-shearing(xy)
@@ -60,6 +61,7 @@ class viscoPlastic2D:
         p = copy.deepcopy(z[7])        # plastic strain
         ET = ET.reshape(3, 1)
 
+        # stress = np.matmul(stiff, ET-Ei)
         stress = np.matmul(stiff, ET-Ei)
         if self.trial == 'xx':                 # X axis traction
             stress[1] = 0                     # StressY = 0
@@ -67,12 +69,12 @@ class viscoPlastic2D:
             stress[0] = 0                     # StressX = 0
         # Calculate deviatoric Stress
         S_dev = copy.deepcopy(stress)
-        S_dev[0][0] -= (1./3.)*(stress[0]+stress[1])
-        S_dev[1][0] -= (1./3.)*(stress[0]+stress[1])
+        S_dev[0][0] -= (1./2.)*(stress[0]+stress[1])
+        S_dev[1][0] -= (1./2.)*(stress[0]+stress[1])
         # Calculate deviatoric back stress
         X_dev = copy.deepcopy(X)
-        X_dev[0][0] -= (1./3.)*(X[0] + X[1])
-        X_dev[1][0] -= (1./3.)*(X[0] + X[1])
+        X_dev[0][0] -= (1./2.)*(X[0] + X[1])
+        X_dev[1][0] -= (1./2.)*(X[0] + X[1])
         # Calculate J invariant
         J = math.sqrt((3./2.)*np.matmul((S_dev-X_dev).transpose(), S_dev-X_dev))
         self.J[i] = J
@@ -154,5 +156,22 @@ class viscoPlastic2D:
             self.X[i, 2] = z[1][5]
             self.R[i] = z[1][6]
             self.p[i] = z[1][7]
-            # next initial condition
+            # ET_aux = copy.deepcopy(self.ET[i,:])
+            # Ei = np.zeros((3,1))
+            # Ei[0,0] = z[1][0]
+            # Ei[1,0] = z[1][1]
+            # Ei[2,0] = z[1][2]
+            # ET_aux = ET_aux.reshape(3,1)
+            # old_stress = np.zeros((3,1))
+            # old_stress[0,0] = self.stress[i,0]
+            # old_stress[1,0] = self.stress[i,1]
+            # old_stress[2,0] = self.stress[i,2]
+            # stress = np.matmul(stiff, ET_aux-Ei)
+            # self.stress_plas[i, 0] = stress[0, 0]
+            # self.stress_plas[i, 1] = stress[1, 0]
+            # self.stress_plas[i, 2] = stress[2, 0]
+            # print ('Ei -> ', Ei[0,0], ' ET-> ',ET_aux[0,0],' Stress_elast ',self.stress[i,0], 'Stress_plast ', stress[0,0])
+
+            # # next initial condition
+
             z0 = z[1]

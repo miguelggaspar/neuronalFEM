@@ -1,12 +1,11 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-
+import sys
 print ('Creating and saving graphs for the dataset')
 workdir = '/home/miguel/Documents/tese/ViscoPlastic-ML/2 Dimensions/dataset/graphs/'
 trials = ['xx', 'yy', 'xy']
 # Ploting style
 style = 'ggplot'
-
 Emaxs = []
 for k in range(len(sys.argv)):
     if (len(sys.argv) - k) == 1:

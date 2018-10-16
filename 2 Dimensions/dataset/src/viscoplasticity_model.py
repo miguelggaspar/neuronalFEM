@@ -6,6 +6,7 @@ import sys
 workdir = '/home/miguel/Documents/tese/ViscoPlastic-ML/2 Dimensions/dataset/results/'
 print ('Chaboche Constitutive Viscoplasticity Model')
 
+# trials = ['xy']
 trials = ['xx', 'yy', 'xy']
 
 # number of time points
@@ -14,7 +15,7 @@ n = int(sys.argv[1])
 t = np.linspace(0, int(sys.argv[2]), n)
 # initial conditions - inelastic strain  / X / R
 z0 = [0, 0, 0, 0, 0, 0, 50.0, 0]
-# 
+#
 Emaxs = []
 for k in range(len(sys.argv)):
     if (len(sys.argv) - k) == 3:
