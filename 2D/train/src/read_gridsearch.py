@@ -1,0 +1,66 @@
+from sklearn.externals import joblib
+from sklearn import preprocessing
+import pandas as pd
+import numpy as np
+from matplotlib import pyplot as plt
+
+def get_dataframe(df, spec, value):
+    df_el = df[df[spec] == value]
+    df_el.index = range(len(df_el))
+    return df_el
+# For further use, use this line to import trained model
+gs = joblib.load('gs.pkl')
+
+
+print("Best: %f using %s" % (gs.best_score_, gs.best_params_))
+means = gs.cv_results_['mean_test_score']
+stds = gs.cv_results_['std_test_score']
+params = gs.cv_results_['params']
+for mean, stdev, param in zip(means, stds, params):
+    if mean > 0.90:
+         if param['solver'] == 'sgd':
+            print("%f (%f) with: %r" % (mean, stdev, param))
+
+
+df = pd.DataFrame.from_dict(gs.cv_results_)
+node_4 = get_dataframe(df, 'param_hidden_layer_sizes', 4)
+node_10 = get_dataframe(df, 'param_hidden_layer_sizes', 10)
+node_16 = get_dataframe(df, 'param_hidden_layer_sizes', 16)
+node_22 = get_dataframe(df, 'param_hidden_layer_sizes', 22)
+
+test_means = gs.cv_results_['mean_test_score']
+test_stds = gs.cv_results_['std_test_score']
+train_means = gs.cv_results_['mean_train_score']
+train_stds = gs.cv_results_['std_train_score']
+
+params = gs.cv_results_['params']
+
+nodes = [node_4, node_10, node_16, node_22]
+N = len(node_4)
+a = node_4['param_solver'].values + '\n' + node_4['param_activation'].values
+node_str = ['node_4','node_10','node_16','node_22']
+count = 0
+
+
+for node in nodes:
+    test = node['mean_test_score']
+    train = node['mean_train_score']
+    test_std = node['std_test_score']
+    train_std = node['std_train_score']
+
+    ind = np.arange(N)  # the x locations for the groups
+    width = 0.35       # the width of the bars
+
+    fig, ax = plt.subplots()
+    rects1 = ax.bar(ind, test, width, color='tab:orange', yerr=test_std)
+
+    rects2 = ax.bar(ind + width, train, width, color='tab:blue', yerr=train_std)
+
+    # add some text for labels, title and axes ticks
+    ax.set_ylabel(r'$R^2$')
+    ax.set_xticks(ind + width / 2)
+    ax.set_xticklabels(a)
+    ax.set_ylim(0,1)
+    ax.legend((rects1[0], rects2[0]), ('Cross-validation', 'Train'))
+    fig.savefig(node_str[count], bbox_inches='tight')
+    count+=1
